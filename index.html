@@ -56,9 +56,105 @@ label{font-weight:600;font-size:13px;color:#374151}
 .renew-btns{display:flex;flex-direction:column;gap:4px;min-width:90px}
 .renew-btns button{font-size:11px;padding:4px 8px;white-space:nowrap}
 .renewal-note{font-size:11px;color:#64748b;font-style:italic;margin-top:3px}
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE — גרסת מובייל
+═══════════════════════════════════════ */
+#mhdr{display:none;position:fixed;top:0;right:0;left:0;height:56px;background:var(--brand);color:#fff;z-index:200;align-items:center;padding:0 16px;gap:10px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+#mhdr .mht{font-weight:700;font-size:15px;line-height:1.2}
+#mhdr .mhs{font-size:10px;opacity:.6}
+#mob-menu-btn{background:none;border:none;color:#fff;font-size:24px;padding:4px 6px;line-height:1;cursor:pointer;flex-shrink:0}
+#mob-sync{width:9px;height:9px;border-radius:50%;background:#94a3b8;transition:background .4s;margin-right:auto;flex-shrink:0}
+
+#mob-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:155;transition:opacity .25s}
+#mob-ov.on{display:block}
+
+#mnav{display:none;position:fixed;bottom:0;right:0;left:0;height:62px;background:#fff;border-top:1px solid #e2e8f0;z-index:200;align-items:stretch;box-shadow:0 -2px 14px rgba(0,0,0,.1)}
+#mnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;text-decoration:none;color:#94a3b8;font-size:10px;font-weight:600;padding:4px 2px;transition:color .15s;position:relative;-webkit-tap-highlight-color:transparent;user-select:none}
+#mnav a.active{color:var(--accent)}
+#mnav a i{font-size:22px}
+#mnav a .mnb{position:absolute;top:4px;right:calc(50% - 20px);background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:8px;padding:1px 5px;min-width:15px;text-align:center;line-height:14px}
+
+/* Mobile card list */
+.mcard{background:#fff;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .1s}
+.mcard:active{transform:scale(.99)}
+.mcard .mcb{padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.mcard .mci{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;font-weight:700}
+.mcard .mci-c{background:#eff6ff;color:#2563eb}
+.mcard .mci-p{background:#f0fdf4;font-size:22px}
+.mcard .mcf{flex:1;min-width:0}
+.mcard .mcn{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard .mcd{font-size:12px;color:#64748b;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard .mcr{flex-shrink:0;text-align:left;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.mcard .mcft{padding:6px 14px 10px;display:flex;flex-wrap:wrap;gap:4px;border-top:1px solid #f8fafc}
+
+.msrch{padding:8px 12px 6px;background:#f1f5f9;position:sticky;top:56px;z-index:5}
+.msrch .form-control{border-radius:10px;font-size:14px!important;background:#fff}
+.mflt{padding:0 12px 8px;background:#f1f5f9;display:flex;gap:8px}
+.mflt .form-select{border-radius:10px;font-size:13px!important;background:#fff}
+
+/* FAB button for mobile */
+.mob-fab{display:none;position:fixed;bottom:72px;left:16px;width:52px;height:52px;border-radius:26px;background:var(--accent);color:#fff;border:none;font-size:24px;box-shadow:0 4px 16px rgba(37,99,235,.45);z-index:190;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.mob-fab:active{transform:scale(.93)}
+
+@media(max-width:767.98px){
+  #sidebar{transform:translateX(100%);transition:transform .25s ease;top:56px;z-index:160}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-right:0!important;padding-top:56px;padding-bottom:68px}
+  #mhdr{display:flex}
+  #mnav{display:flex}
+  .ph{padding:10px 14px}
+  .ct{padding:10px}
+  .ph h5{font-size:14px}
+  /* Bottom-sheet modals */
+  .modal-dialog{margin:0!important;max-width:100%!important;min-height:100%!important;display:flex!important;align-items:flex-end!important}
+  .modal-content{border-radius:20px 20px 0 0!important;max-height:93vh;overflow-y:auto;width:100%}
+  .modal-xl,.modal-lg,.modal-sm{max-width:100%!important}
+  .modal-header{border-radius:20px 20px 0 0!important}
+  /* Prevent iOS input zoom */
+  input,select,textarea{font-size:16px!important}
+  /* Alert rows */
+  .ar{flex-wrap:wrap}
+  .ar .text-end{width:100%}
+  .renew-btns{flex-direction:row;flex-wrap:wrap;min-width:unset;width:100%;margin-top:6px}
+  .renew-btns button{flex:1;padding:8px!important;font-size:12px!important}
+  /* Stats */
+  .sc .val{font-size:20px}
+  /* Desktop table hidden, mobile cards shown */
+  .dt-wrap{display:none!important}
+  .mc-wrap{display:block!important}
+  /* Toolbar */
+  .tb{flex-wrap:wrap!important;gap:6px!important;padding:8px 10px!important}
+  .tb h6{font-size:13px!important}
+  #csrch,#psrch{width:100%!important;max-width:100%!important}
+  /* Bulk bars and desktop search — hide on mobile */
+  #bulk-bar,#pbulk-bar{display:none!important}
+  .tb .ms-auto{display:none!important}
+  /* FAB */
+  .mob-fab{display:flex}
+  /* Dashboard cards row spacing */
+  .row.g-3.mb-4 .sc{padding:12px 14px}
+}
+
+@media(min-width:768px){
+  .dt-wrap{display:block!important}
+  .mc-wrap{display:none!important}
+  .msrch,.mflt,.mob-fab{display:none!important}
+}
 </style>
 </head>
 <body>
+
+<!-- MOBILE HEADER -->
+<div id="mhdr">
+  <button id="mob-menu-btn" onclick="toggleMobMenu()" aria-label="תפריט"><i class="bi bi-list"></i></button>
+  <div>
+    <div class="mht"><i class="bi bi-shield-check me-1"></i>CRM ביטוח</div>
+    <div class="mhs">ניהול לקוחות אלמנטרי</div>
+  </div>
+  <span id="mob-sync" title="סטטוס חיבור"></span>
+</div>
+<div id="mob-ov" onclick="closeMobMenu()"></div>
 
 <!-- SIDEBAR -->
 <div id="sidebar">
@@ -132,14 +228,21 @@ label{font-weight:600;font-size:13px;color:#374151}
       </div>
       <div class="ms-auto"><input id="csrch" type="text" class="form-control form-control-sm" placeholder="חיפוש..." style="width:240px" oninput="renderClients()"></div>
     </div>
-    <div class="table-responsive">
-      <table class="table table-hover mb-0">
-        <thead><tr>
-          <th style="width:36px"><input type="checkbox" id="chk-all" onclick="toggleSelectAll(this)" style="cursor:pointer;width:16px;height:16px"></th>
-          <th>שם</th><th>ת.ז.</th><th>טלפון</th><th>רחוב</th><th>עיר</th><th>פוליסות</th><th>פעולות</th>
-        </tr></thead>
-        <tbody id="ctbody"></tbody>
-      </table>
+    <div class="dt-wrap">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead><tr>
+            <th style="width:36px"><input type="checkbox" id="chk-all" onclick="toggleSelectAll(this)" style="cursor:pointer;width:16px;height:16px"></th>
+            <th>שם</th><th>ת.ז.</th><th>טלפון</th><th>רחוב</th><th>עיר</th><th>פוליסות</th><th>פעולות</th>
+          </tr></thead>
+          <tbody id="ctbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Mobile cards -->
+    <div class="mc-wrap">
+      <div class="msrch"><input id="csrch-mob" type="text" class="form-control" placeholder="🔍 חיפוש לקוח..." oninput="document.getElementById('csrch').value=this.value;renderClients()"></div>
+      <div id="cmob" style="padding:0 10px 10px"></div>
     </div>
   </div></div>
 </section>
@@ -166,15 +269,30 @@ label{font-weight:600;font-size:13px;color:#374151}
         </select>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table table-hover mb-0">
-        <thead><tr>
-          <th style="width:36px"><input type="checkbox" id="pchk-all" onclick="toggleSelectAllPolicies(this)" style="cursor:pointer;width:16px;height:16px"></th>
-          <th>לקוח</th><th>מ. פוליסה</th><th>סוג</th><th>חברה</th>
-          <th>מ.ר. / כתובת / עסק</th><th>מתאריך</th><th>עד תאריך</th><th>פרמיה</th><th>סטטוס</th><th>פעולות</th>
-        </tr></thead>
-        <tbody id="ptbody"></tbody>
-      </table>
+    <div class="dt-wrap">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead><tr>
+            <th style="width:36px"><input type="checkbox" id="pchk-all" onclick="toggleSelectAllPolicies(this)" style="cursor:pointer;width:16px;height:16px"></th>
+            <th>לקוח</th><th>מ. פוליסה</th><th>סוג</th><th>חברה</th>
+            <th>מ.ר. / כתובת / עסק</th><th>מתאריך</th><th>עד תאריך</th><th>פרמיה</th><th>סטטוס</th><th>פעולות</th>
+          </tr></thead>
+          <tbody id="ptbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Mobile cards -->
+    <div class="mc-wrap">
+      <div class="msrch"><input id="psrch-mob" type="text" class="form-control" placeholder="🔍 חיפוש פוליסה..." oninput="document.getElementById('psrch').value=this.value;renderPolicies()"></div>
+      <div class="mflt">
+        <select class="form-select form-select-sm" onchange="document.getElementById('pflt').value=this.value;renderPolicies()">
+          <option value="">כל הסוגים</option>
+          <option value="car">🚗 רכב</option>
+          <option value="apartment">🏠 דירה</option>
+          <option value="business">🏢 עסק</option>
+        </select>
+      </div>
+      <div id="pmob" style="padding:0 10px 10px"></div>
     </div>
   </div></div>
 </section>
@@ -219,6 +337,31 @@ label{font-weight:600;font-size:13px;color:#374151}
 </section>
 
 </div><!-- /main -->
+
+<!-- MOBILE BOTTOM NAV -->
+<div id="mnav">
+  <a href="#" onclick="nav('dashboard');return false" id="mn-dashboard" class="active">
+    <i class="bi bi-speedometer2"></i><span>בקרה</span>
+  </a>
+  <a href="#" onclick="nav('alerts');return false" id="mn-alerts">
+    <i class="bi bi-bell-fill"></i><span>התראות</span>
+    <span id="mn-abadge" class="mnb d-none"></span>
+  </a>
+  <a href="#" onclick="nav('clients');return false" id="mn-clients">
+    <i class="bi bi-people-fill"></i><span>לקוחות</span>
+  </a>
+  <a href="#" onclick="nav('policies');return false" id="mn-policies">
+    <i class="bi bi-file-earmark-text-fill"></i><span>פוליסות</span>
+  </a>
+  <a href="#" onclick="nav('import');return false" id="mn-import">
+    <i class="bi bi-cloud-upload-fill"></i><span>ייבוא</span>
+  </a>
+</div>
+
+<!-- MOBILE FAB (add client/policy based on section) -->
+<button class="mob-fab" id="mob-fab" onclick="mobFabAction()" title="הוסף חדש">
+  <i class="bi bi-plus-lg"></i>
+</button>
 
 <!-- ═══ CLIENT MODAL ═══ -->
 <div class="modal fade" id="cModal" tabindex="-1">
@@ -561,6 +704,8 @@ function openDB(){
       const lbl=document.getElementById('sync-lbl');
       if(dot)dot.style.background=ok?'#22c55e':'#ef4444';
       if(lbl)lbl.textContent=ok?'מסונכרן ☁':'לא מחובר ⚠';
+      const md=document.getElementById('mob-sync');
+      if(md)md.style.background=ok?'#22c55e':'#ef4444';
     });
   });
 }
@@ -603,8 +748,14 @@ let clients=[],policies=[],curSection='dashboard';
 function nav(s){
   document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('#sidebar nav a').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('#mnav a').forEach(x=>x.classList.remove('active'));
   document.getElementById('sec-'+s).classList.add('active');
   document.getElementById('n-'+s).classList.add('active');
+  const mn=document.getElementById('mn-'+s);if(mn)mn.classList.add('active');
+  closeMobMenu();
+  // Update FAB visibility
+  const fab=document.getElementById('mob-fab');
+  if(fab)fab.style.display=(s==='clients'||s==='policies')?'flex':'none';
   curSection=s;
   if(s==='dashboard')loadDash();
   else if(s==='alerts')loadAlerts();
@@ -780,6 +931,8 @@ async function loadDash(){
   const bc=overdue.length+nmP.length;
   const badge=document.getElementById('abadge');
   if(bc>0){badge.textContent=bc;badge.classList.remove('d-none')}else badge.classList.add('d-none');
+  const mnb=document.getElementById('mn-abadge');
+  if(mnb){if(bc>0){mnb.textContent=bc;mnb.classList.remove('d-none')}else mnb.classList.add('d-none');}
   renderAlertRows('d-overdue',overdue,'danger');
   renderAlertRows('d-nextmonth',nmP,'info');
 }
@@ -887,7 +1040,7 @@ async function renderClients(){
   const q=(document.getElementById('csrch').value||'').trim().toLowerCase();
   const list=q?clients.filter(c=>[c.name,c.id_number,c.phone,c.address,c.city].some(v=>v&&v.toString().toLowerCase().includes(q))):clients;
   const tbody=document.getElementById('ctbody');
-  if(!list.length){tbody.innerHTML=`<tr><td colspan="8"><div class="es py-3"><i class="bi bi-person-x"></i><div>אין לקוחות</div></div></td></tr>`;return}
+  if(!list.length){tbody.innerHTML=`<tr><td colspan="8"><div class="es py-3"><i class="bi bi-person-x"></i><div>אין לקוחות</div></div></td></tr>`;renderMobileClients([]);updateBulkBar();return}
   tbody.innerHTML=list.map(c=>{
     const pc=policies.filter(p=>p.client_id===c.id).length;
     const isFallback=c.name&&/^לקוח\s*\d/.test(c.name);
@@ -916,6 +1069,7 @@ async function renderClients(){
       </td>
     </tr>`;}).join('');
   updateBulkBar();
+  renderMobileClients(list);
 }
 // ── Multi-select helpers ──
 function toggleClientSel(id,chk){
@@ -1064,7 +1218,7 @@ async function renderPolicies(){
   if(q)list=list.filter(p=>{const c=clients.find(x=>x.id===p.client_id)||{};return[c.name,p.policy_number,p.vehicle_number,p.property_address,p.business_name,p.coverage_notes].some(v=>v&&v.toString().toLowerCase().includes(q))});
   list.sort((a,b)=>(a.renewal_date||'9').localeCompare(b.renewal_date||'9'));
   const tbody=document.getElementById('ptbody');
-  if(!list.length){tbody.innerHTML=`<tr><td colspan="11"><div class="es py-3"><i class="bi bi-file-x"></i><div>אין פוליסות</div></div></td></tr>`;return}
+  if(!list.length){tbody.innerHTML=`<tr><td colspan="11"><div class="es py-3"><i class="bi bi-file-x"></i><div>אין פוליסות</div></div></td></tr>`;renderMobilePolicies([]);updatePolicyBulkBar();return}
   tbody.innerHTML=list.map(p=>{
     const c=clients.find(x=>x.id===p.client_id)||{};
     const safeCN=(c.name||'').replace(/'/g,"\\'");
@@ -1090,6 +1244,7 @@ async function renderPolicies(){
       </td>
     </tr>`;}).join('');
   updatePolicyBulkBar();
+  renderMobilePolicies(list);
 }
 let _selPolicies=new Set();
 function togglePolicySel(id,chk){
@@ -1959,6 +2114,115 @@ async function clearAllData(){
    INIT
 ══════════════════════════════════════════════ */
 openDB().then(async()=>{await migrateFromLocalStorage();loadDash();}).catch(e=>alert('שגיאה בחיבור לענן: '+e.message));
+
+/* ══════════════════════════════════════════════
+   MOBILE NAV & MENU
+══════════════════════════════════════════════ */
+function toggleMobMenu(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('mob-ov').classList.toggle('on');
+}
+function closeMobMenu(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('mob-ov').classList.remove('on');
+}
+function mobFabAction(){
+  if(curSection==='clients')openClientModal();
+  else if(curSection==='policies')openPolicyModal();
+}
+
+/* ══════════════════════════════════════════════
+   MOBILE CLIENT CARDS
+══════════════════════════════════════════════ */
+function renderMobileClients(list){
+  const el=document.getElementById('cmob');
+  if(!el)return;
+  if(!list.length){
+    el.innerHTML=`<div class="es py-4"><i class="bi bi-person-x"></i><div>אין לקוחות</div></div>`;
+    return;
+  }
+  el.innerHTML=list.map(c=>{
+    const pc=policies.filter(p=>p.client_id===c.id).length;
+    const carPols=policies.filter(p=>p.client_id===c.id&&p.product_type==='car');
+    const aptPols=policies.filter(p=>p.client_id===c.id&&p.product_type==='apartment');
+    const bizPols=policies.filter(p=>p.client_id===c.id&&p.product_type==='business');
+    const typeIcons=[...carPols.map(()=>'<span class="bt bt-car" style="font-size:10px">🚗 רכב</span>'),
+                     ...aptPols.map(()=>'<span class="bt bt-apt" style="font-size:10px">🏠 דירה</span>'),
+                     ...bizPols.map(()=>'<span class="bt bt-biz" style="font-size:10px">🏢 עסק</span>')].join('');
+    const initial=(c.name||'?').charAt(0);
+    const isFallback=c.name&&/^לקוח\s*\d/.test(c.name);
+    const colors=['#3b82f6','#22c55e','#f97316','#a855f7','#14b8a6','#ec4899','#64748b'];
+    const bg=colors[((c.id||0)%colors.length)];
+    return`<div class="mcard">
+      <div class="mcb" onclick="openClientProfile(${c.id})">
+        <div class="mci mci-c" style="background:${bg}20;color:${bg}">${initial}</div>
+        <div class="mcf">
+          <div class="mcn${isFallback?' text-warning':''}">${escHtml(c.name||'ללא שם')}</div>
+          <div class="mcd">
+            ${c.phone?`<a href="tel:${c.phone}" onclick="event.stopPropagation()" style="color:#2563eb">${c.phone}</a>`:'—'}
+            ${c.city?` · ${escHtml(c.city)}`:''}
+          </div>
+        </div>
+        <div class="mcr">
+          <span class="badge bg-primary">${pc}</span>
+          <i class="bi bi-chevron-left text-muted" style="font-size:13px"></i>
+        </div>
+      </div>
+      ${typeIcons?`<div class="mcft">${typeIcons}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════
+   MOBILE POLICY CARDS
+══════════════════════════════════════════════ */
+function renderMobilePolicies(list){
+  const el=document.getElementById('pmob');
+  if(!el)return;
+  if(!list.length){
+    el.innerHTML=`<div class="es py-4"><i class="bi bi-file-x"></i><div>אין פוליסות</div></div>`;
+    return;
+  }
+  const todayStr=today();
+  el.innerHTML=list.map(p=>{
+    const c=clients.find(x=>x.id===p.client_id)||{};
+    const typeIcon=p.product_type==='car'?'🚗':p.product_type==='apartment'?'🏠':'🏢';
+    const typeBg=p.product_type==='car'?'#dbeafe':p.product_type==='apartment'?'#dcfce7':'#fef3c7';
+    const rDate=p.renewal_date||p.end_date||'';
+    const expired=rDate&&rDate<todayStr;
+    const diff=rDate?Math.floor((new Date(rDate)-new Date())/86400000):-1;
+    const soon=!expired&&diff>=0&&diff<=30;
+    const dateColor=expired?'#ef4444':soon?'#f97316':'#475569';
+    const dateBg=expired?'#fee2e2':soon?'#fff7ed':'#f8fafc';
+    const premStr=p.annual_premium?'₪'+Number(p.annual_premium).toLocaleString('he-IL'):'';
+    const identStr=p.product_type==='car'?
+      (p.vehicle_number?`<span class="pn" style="font-size:11px">${fmtPlate(p.vehicle_number)}</span> ${covBadge(p.coverage_type)}`:''):
+      p.product_type==='apartment'?escHtml([p.property_address,p.property_city].filter(Boolean).join(', ')||''):
+      escHtml(p.business_name||'');
+    return`<div class="mcard">
+      <div class="mcb" onclick="editPolicy(${p.id})">
+        <div class="mci mci-p" style="background:${typeBg}">${typeIcon}</div>
+        <div class="mcf">
+          <div class="mcn">${escHtml(c.name||'—')}</div>
+          <div class="mcd">${escHtml(p.insurance_company||'—')} · <span class="pn" style="font-size:10px">${p.policy_number||'—'}</span></div>
+          ${identStr?`<div class="mcd mt-1">${identStr}</div>`:''}
+        </div>
+        <div class="mcr">
+          ${renewalBadge(p)||''}
+          <div class="mt-1 px-2 py-1 rounded" style="background:${dateBg};color:${dateColor};font-size:11px;font-weight:700;text-align:center">${fd(rDate)}</div>
+          ${premStr?`<div style="font-size:11px;color:#64748b">${premStr}</div>`:''}
+        </div>
+      </div>
+      <div class="mcft" style="gap:6px">
+        <button class="btn btn-sm btn-outline-secondary ba" onclick="event.stopPropagation();editPolicy(${p.id})"><i class="bi bi-pencil me-1"></i>עריכה</button>
+        <button class="btn btn-sm btn-outline-primary ba" onclick="event.stopPropagation();quickUploadDoc(${p.id})"><i class="bi bi-upload me-1"></i>קובץ</button>
+        ${getDocMeta(p.id,'generic')||getDocMeta(p.id,'mkif')||getDocMeta(p.id,'hova')?
+          `<button class="btn btn-sm btn-success ba" onclick="event.stopPropagation();openDocModal(${p.id},'${getDocMeta(p.id,'mkif')?'mkif':getDocMeta(p.id,'hova')?'hova':'generic'}')"><i class="bi bi-file-earmark-check me-1"></i>צפייה</button>`:''}
+        <button class="btn btn-sm btn-outline-danger ba" onclick="event.stopPropagation();delPolicy(${p.id})"><i class="bi bi-trash"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
 </script>
 </body>
 </html>
