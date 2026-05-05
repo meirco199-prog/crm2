@@ -1,0 +1,21 @@
+{
+  "name": "CRM ביטוח אלמנטרי",
+  "short_name": "CRM ביטוח",
+  "description": "ניהול לקוחות ופוליסות ביטוח אלמנטרי",
+  "start_url": "/crm2/",
+  "scope": "/crm2/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a3a6e",
+  "theme_color": "#1a3a6e",
+  "lang": "he",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

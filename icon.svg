@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- App background — rounded square, brand navy -->
+  <rect width="512" height="512" rx="114" fill="#1a3a6e"/>
+  <!-- Shield outer glow -->
+  <path d="M256 90 L398 146 V270 Q398 374 256 432 Q114 374 114 270 V146 Z"
+        fill="rgba(255,255,255,0.08)"/>
+  <!-- Shield body — white -->
+  <path d="M256 110 L378 162 V266 Q378 358 256 412 Q134 358 134 266 V162 Z"
+        fill="white"/>
+  <!-- Checkmark — accent blue -->
+  <path d="M192 260 L234 304 L320 204"
+        stroke="#2563eb" stroke-width="34"
+        stroke-linecap="round" stroke-linejoin="round"
+        fill="none"/>
+</svg>
