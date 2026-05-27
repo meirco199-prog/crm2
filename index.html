@@ -64,6 +64,9 @@ label{font-weight:600;font-size:13px;color:#374151}
 .renew-btns{display:flex;flex-direction:column;gap:4px;min-width:90px}
 .renew-btns button{font-size:11px;padding:4px 8px;white-space:nowrap}
 .renewal-note{font-size:11px;color:#64748b;font-style:italic;margin-top:3px}
+.srt{cursor:pointer;user-select:none;white-space:nowrap}
+.srt:hover{background:#f0f4ff!important}
+.sind{font-size:10px;color:#94a3b8;margin-right:2px}
 
 /* ═══════════════════════════════════════
    MOBILE RESPONSIVE — גרסת מובייל
@@ -241,7 +244,13 @@ label{font-weight:600;font-size:13px;color:#374151}
         <table class="table table-hover mb-0">
           <thead><tr>
             <th style="width:36px"><input type="checkbox" id="chk-all" onclick="toggleSelectAll(this)" style="cursor:pointer;width:16px;height:16px"></th>
-            <th>שם</th><th>ת.ז.</th><th>טלפון</th><th>רחוב</th><th>עיר</th><th>פוליסות</th><th>פעולות</th>
+            <th class="srt" onclick="sortC('name')">שם <span class="sind" id="cs-name">▲</span></th>
+            <th class="srt" onclick="sortC('id_number')">ת.ז. <span class="sind" id="cs-id_number"></span></th>
+            <th class="srt" onclick="sortC('phone')">טלפון <span class="sind" id="cs-phone"></span></th>
+            <th class="srt" onclick="sortC('address')">רחוב <span class="sind" id="cs-address"></span></th>
+            <th class="srt" onclick="sortC('city')">עיר <span class="sind" id="cs-city"></span></th>
+            <th class="srt" onclick="sortC('pc')">פוליסות <span class="sind" id="cs-pc"></span></th>
+            <th>פעולות</th>
           </tr></thead>
           <tbody id="ctbody"></tbody>
         </table>
@@ -282,8 +291,19 @@ label{font-weight:600;font-size:13px;color:#374151}
         <table class="table table-hover mb-0">
           <thead><tr>
             <th style="width:36px"><input type="checkbox" id="pchk-all" onclick="toggleSelectAllPolicies(this)" style="cursor:pointer;width:16px;height:16px"></th>
-            <th>לקוח</th><th>מ. פוליסה</th><th>סוג</th><th>חברה</th>
-            <th>מ.ר. / כתובת / עסק</th><th>מתאריך</th><th>עד תאריך</th><th>פרמיה</th><th>סטטוס</th><th>פעולות</th>
+            <th class="srt" onclick="sortP('client_name')">לקוח <span class="sind" id="ps-client_name"></span></th>
+            <th class="srt" onclick="sortP('policy_number')">מ. פוליסה <span class="sind" id="ps-policy_number"></span></th>
+            <th class="srt" onclick="sortP('product_type')">סוג <span class="sind" id="ps-product_type"></span></th>
+            <th class="srt" onclick="sortP('insurance_company')">חברה <span class="sind" id="ps-insurance_company"></span></th>
+            <th>פרטים</th>
+            <th class="srt" onclick="sortP('start_date')">מתאריך <span class="sind" id="ps-start_date"></span></th>
+            <th class="srt" onclick="sortP('end_date')">עד תאריך <span class="sind" id="ps-end_date">▲</span></th>
+            <th class="srt" onclick="sortP('premium_mkif')" style="color:#166534">מקיף <span class="sind" id="ps-premium_mkif"></span></th>
+            <th class="srt" onclick="sortP('premium_hova')" style="color:#92400e">חובה <span class="sind" id="ps-premium_hova"></span></th>
+            <th class="srt" onclick="sortP('premium_tsadg')" style="color:#4338ca">צד ג׳ <span class="sind" id="ps-premium_tsadg"></span></th>
+            <th class="srt" onclick="sortP('annual_premium')">סה"כ <span class="sind" id="ps-annual_premium"></span></th>
+            <th class="srt" onclick="sortP('renewal_status')">סטטוס <span class="sind" id="ps-renewal_status"></span></th>
+            <th>פעולות</th>
           </tr></thead>
           <tbody id="ptbody"></tbody>
         </table>
@@ -458,11 +478,15 @@ label{font-weight:600;font-size:13px;color:#374151}
                   <input class="form-check-input" type="radio" name="p-covtype" id="cov-tsad" value="צד ג׳" onchange="updateCovSections()">
                   <label class="form-check-label fw-normal" for="cov-tsad"><span class="badge bg-secondary">צד ג׳</span></label>
                 </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="p-covtype" id="cov-hova-tsad" value="חובה+צד ג׳" onchange="updateCovSections()">
+                  <label class="form-check-label fw-normal" for="cov-hova-tsad"><span class="badge" style="background:#6366f1">חובה + צד ג׳</span></label>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- רובריקת חובה -->
+          <!-- רובריקת מקיף -->
           <div id="f-cov-mkif" class="mt-2">
             <div class="p-3 border border-success rounded" style="background:#f0fff4">
               <strong class="text-success"><i class="bi bi-shield-check me-1"></i>ביטוח מקיף</strong>
@@ -507,6 +531,22 @@ label{font-weight:600;font-size:13px;color:#374151}
                   <div class="d-flex align-items-center gap-2">
                     <input type="file" id="p-doc-sagrir" class="form-control form-control-sm" style="max-width:260px" accept=".pdf,.jpg,.jpeg,.png,.gif">
                     <div id="p-doc-sagrir-cur"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- רובריקת צד ג׳ -->
+          <div id="f-cov-tsadg" class="mt-2" style="display:none">
+            <div class="p-3 border border-secondary rounded" style="background:#f8fafc">
+              <strong class="text-secondary"><i class="bi bi-shield-slash me-1"></i>ביטוח צד ג׳</strong>
+              <div class="row g-2 mt-1 align-items-end">
+                <div class="col-md-4"><label>פרמיה צד ג׳ (₪)</label><input type="number" class="form-control" id="p-prem-tsadg" step="0.01" placeholder="0.00"></div>
+                <div class="col-md-8">
+                  <label>קובץ פוליסת צד ג׳ <small class="text-muted fw-normal">(PDF/תמונה עד 4MB)</small></label>
+                  <div class="d-flex align-items-center gap-2">
+                    <input type="file" id="p-doc-tsadg" class="form-control form-control-sm" style="max-width:260px" accept=".pdf,.jpg,.jpeg,.png,.gif">
+                    <div id="p-doc-tsadg-cur"></div>
                   </div>
                 </div>
               </div>
@@ -792,11 +832,13 @@ function renewalBadge(p){
 function updateCovSections(){
   const ct=(document.querySelector('input[name="p-covtype"]:checked')||{}).value||'מקיף';
   const hasMkif=['מקיף','מקיף+חובה','מקיף+חובה+שגריר'].includes(ct);
-  const hasHova=['חובה','מקיף+חובה','מקיף+חובה+שגריר'].includes(ct);
+  const hasHova=['חובה','מקיף+חובה','מקיף+חובה+שגריר','חובה+צד ג׳'].includes(ct);
   const hasSagrir=['שגריר','מקיף+חובה+שגריר'].includes(ct);
+  const hasTsadg=['צד ג׳','חובה+צד ג׳'].includes(ct);
   document.getElementById('f-cov-mkif').style.display=hasMkif?'':'none';
   document.getElementById('f-cov-hova').style.display=hasHova?'':'none';
   document.getElementById('f-cov-sagrir').style.display=hasSagrir?'':'none';
+  document.getElementById('f-cov-tsadg').style.display=hasTsadg?'':'none';
   // Hide generic premium & doc for car (specific fields replace them)
   const isCar=document.getElementById('p-prod').value==='car';
   if(isCar){
@@ -866,6 +908,7 @@ function covBadge(ct){
   if(ct==='שגריר')return`<span class="badge bg-info text-dark" style="${s}">שגריר</span>`;
   if(ct==='מקיף+חובה+שגריר')return`<span class="badge bg-dark" style="${s}">מקיף+חובה+שגריר</span>`;
   if(ct==="צד ג׳")return`<span class="badge bg-secondary" style="${s}">צד ג׳</span>`;
+  if(ct==="חובה+צד ג׳")return`<span class="badge" style="${s};background:#6366f1">חובה+צד ג׳</span>`;
   return`<span class="badge bg-light text-dark" style="${s}">${ct}</span>`;
 }
 function fmtPlate(vn){
@@ -1046,7 +1089,17 @@ async function renderClients(){
   if(!clients.length)clients=await dbAll('clients');
   if(!policies.length)policies=(await dbAll('policies')).filter(p=>p.is_active!==false);
   const q=(document.getElementById('csrch').value||'').trim().toLowerCase();
-  const list=q?clients.filter(c=>[c.name,c.id_number,c.phone,c.address,c.city].some(v=>v&&v.toString().toLowerCase().includes(q))):clients;
+  let list=q?clients.filter(c=>[c.name,c.id_number,c.phone,c.address,c.city].some(v=>v&&v.toString().toLowerCase().includes(q))):[...clients];
+  // Sort
+  list.sort((a,b)=>{
+    let va,vb;
+    if(_cSortCol==='pc'){va=policies.filter(p=>p.client_id===a.id).length;vb=policies.filter(p=>p.client_id===b.id).length;}
+    else{va=(a[_cSortCol]||'').toString().toLowerCase();vb=(b[_cSortCol]||'').toString().toLowerCase();}
+    return va<vb?-_cSortDir:va>vb?_cSortDir:0;
+  });
+  // Update sort indicators
+  document.querySelectorAll('[id^="cs-"]').forEach(el=>el.textContent='');
+  const csi=document.getElementById('cs-'+_cSortCol);if(csi)csi.textContent=_cSortDir>0?' ▲':' ▼';
   const tbody=document.getElementById('ctbody');
   if(!list.length){tbody.innerHTML=`<tr><td colspan="8"><div class="es py-3"><i class="bi bi-person-x"></i><div>אין לקוחות</div></div></td></tr>`;renderMobileClients([]);updateBulkBar();return}
   tbody.innerHTML=list.map(c=>{
@@ -1224,26 +1277,62 @@ async function renderPolicies(){
   let list=policies;
   if(flt)list=list.filter(p=>p.product_type===flt);
   if(q)list=list.filter(p=>{const c=clients.find(x=>x.id===p.client_id)||{};return[c.name,p.policy_number,p.vehicle_number,p.property_address,p.business_name,p.coverage_notes].some(v=>v&&v.toString().toLowerCase().includes(q))});
-  list.sort((a,b)=>(a.renewal_date||'9').localeCompare(b.renewal_date||'9'));
+  // Sort
+  const todayStr=today();
+  list.forEach(p=>{const c=clients.find(x=>x.id===p.client_id)||{};p._cname=c.name||'';});
+  list.sort((a,b)=>{
+    const col=_pSortCol==='client_name'?'_cname':_pSortCol;
+    let va=a[col]??'', vb=b[col]??'';
+    const na=parseFloat(va),nb=parseFloat(vb);
+    if(!isNaN(na)&&!isNaN(nb)){va=na;vb=nb;}
+    else{va=String(va).toLowerCase();vb=String(vb).toLowerCase();}
+    return va<vb?-_pSortDir:va>vb?_pSortDir:0;
+  });
+  // Update sort indicators
+  document.querySelectorAll('[id^="ps-"]').forEach(el=>el.textContent='');
+  const psi=document.getElementById('ps-'+_pSortCol);if(psi)psi.textContent=_pSortDir>0?' ▲':' ▼';
+
   const tbody=document.getElementById('ptbody');
-  if(!list.length){tbody.innerHTML=`<tr><td colspan="11"><div class="es py-3"><i class="bi bi-file-x"></i><div>אין פוליסות</div></div></td></tr>`;renderMobilePolicies([]);updatePolicyBulkBar();return}
+  if(!list.length){tbody.innerHTML=`<tr><td colspan="14"><div class="es py-3"><i class="bi bi-file-x"></i><div>אין פוליסות</div></div></td></tr>`;renderMobilePolicies([]);updatePolicyBulkBar();return}
   tbody.innerHTML=list.map(p=>{
     const c=clients.find(x=>x.id===p.client_id)||{};
     const safeCN=(c.name||'').replace(/'/g,"\\'");
     const rowStyle=getRowStyle(p.id);
     const chked=_selPolicies.has(p.id)?'checked':'';
     const selCls=_selPolicies.has(p.id)?'table-primary':'';
-    return`<tr class="${rcls(p.renewal_date)} ${selCls}" style="${rowStyle}">
+    // Auto-expired logic
+    const rDate=p.renewal_date||p.end_date||'';
+    const isExpired=rDate&&rDate<todayStr;
+    const isRenewed=p.renewal_status==='renewed';
+    const isNotRenewed=p.renewal_status==='not_renewed';
+    const autoExpired=isExpired&&!isRenewed&&!p.renewal_status;
+    let rowCls=selCls;
+    if(!rowStyle){// only apply color if no manual row color
+      if(isRenewed)rowCls+='';
+      else if(autoExpired||isNotRenewed)rowCls+=' table-danger';
+      else rowCls+=' '+rcls(rDate);
+    }
+    const statusCell=autoExpired
+      ?'<span class="bt bt-norenew" style="font-size:10px">⏰ לא חודש</span>'
+      :renewalBadge(p);
+    // Premium cells
+    const pmkif=p.premium_mkif?`<span style="color:#166534;font-size:12px">${fc(p.premium_mkif)}</span>`:'<span class="text-muted">—</span>';
+    const phova=p.premium_hova?`<span style="color:#92400e;font-size:12px">${fc(p.premium_hova)}</span>`:'<span class="text-muted">—</span>';
+    const ptsadg=p.premium_tsadg?`<span style="color:#4338ca;font-size:12px">${fc(p.premium_tsadg)}</span>`:'<span class="text-muted">—</span>';
+    return`<tr class="${rowCls}" style="${rowStyle}">
       <td><input type="checkbox" class="policy-chk" data-id="${p.id}" ${chked} onclick="togglePolicySel(${p.id},this)" style="cursor:pointer;width:16px;height:16px"></td>
       <td><a href="#" class="fw-bold text-dark text-decoration-none" onclick="showCPolicies(${c.id},'${safeCN}');return false">${c.name||'—'}</a></td>
       <td><span class="pn">${p.policy_number||'—'}</span></td>
       <td>${pbadge(p.product_type)}</td>
-      <td>${p.insurance_company||'—'}</td>
-      <td style="max-width:180px;white-space:normal;font-size:12px">${identF(p)}</td>
-      <td>${fd(p.start_date)}</td>
-      <td><b>${fd(p.end_date)}</b></td>
-      <td>${fc(p.annual_premium)}</td>
-      <td>${renewalBadge(p)}</td>
+      <td style="font-size:12px">${p.insurance_company||'—'}</td>
+      <td style="max-width:160px;white-space:normal;font-size:12px">${identF(p)}</td>
+      <td style="font-size:12px">${fd(p.start_date)}</td>
+      <td><b style="font-size:12px">${fd(p.end_date)}</b></td>
+      <td style="font-size:12px">${pmkif}</td>
+      <td style="font-size:12px">${phova}</td>
+      <td style="font-size:12px">${ptsadg}</td>
+      <td style="font-size:12px;font-weight:700">${fc(p.annual_premium)}</td>
+      <td>${statusCell}</td>
       <td>
         ${colorDot(p.id)}
         ${docBtn(p.id)}
@@ -1309,9 +1398,9 @@ function selProd(t){
 async function openPolicyModal(clientId=null){
   ['p-id','p-polnum','p-start','p-end','p-prem','p-vnum','p-vmake','p-vmodel','p-vyear','p-paddr','p-pcity','p-pfloor','p-bname','p-btype','p-baddr','p-notes'].forEach(x=>document.getElementById(x).value='');
   document.getElementById('cov-mkif').checked=true;
-  ['p-prem-mkif','p-prem-hova','p-prem-sagrir'].forEach(x=>document.getElementById(x).value='');
-  ['p-doc-mkif','p-doc-hova','p-doc-sagrir'].forEach(x=>document.getElementById(x).value='');
-  ['p-doc-mkif-cur','p-doc-hova-cur','p-doc-sagrir-cur'].forEach(x=>document.getElementById(x).innerHTML='');
+  ['p-prem-mkif','p-prem-hova','p-prem-sagrir','p-prem-tsadg'].forEach(x=>document.getElementById(x).value='');
+  ['p-doc-mkif','p-doc-hova','p-doc-sagrir','p-doc-tsadg'].forEach(x=>document.getElementById(x).value='');
+  ['p-doc-mkif-cur','p-doc-hova-cur','p-doc-sagrir-cur','p-doc-tsadg-cur'].forEach(x=>document.getElementById(x).innerHTML='');
   document.getElementById('p-company').value='';
   document.getElementById('p-doc').value='';
   document.getElementById('p-doc-cur').innerHTML='';
@@ -1347,13 +1436,14 @@ async function editPolicy(id){
   document.getElementById('p-prem-mkif').value=p.premium_mkif||'';
   document.getElementById('p-prem-hova').value=p.premium_hova||'';
   document.getElementById('p-prem-sagrir').value=p.premium_sagrir||'';
-  ['p-doc-mkif','p-doc-hova','p-doc-sagrir'].forEach(x=>document.getElementById(x).value='');
+  document.getElementById('p-prem-tsadg').value=p.premium_tsadg||'';
+  ['p-doc-mkif','p-doc-hova','p-doc-sagrir','p-doc-tsadg'].forEach(x=>document.getElementById(x).value='');
   const showDocCur=(suffix,pid)=>{
     const el=document.getElementById('p-doc-'+suffix+'-cur');
     const m=getDocMeta(pid,suffix);
     if(m&&m.url){el.innerHTML=`<span class="badge bg-success"><i class="bi bi-check2"></i> ${escHtml(m.name)}</span>`;}else el.innerHTML='';
   };
-  showDocCur('mkif',p.id);showDocCur('hova',p.id);showDocCur('sagrir',p.id);
+  showDocCur('mkif',p.id);showDocCur('hova',p.id);showDocCur('sagrir',p.id);showDocCur('tsadg',p.id);
   updateCovSections();
   document.getElementById('p-doc').value='';
   renderDocCur(p.id);
@@ -1372,8 +1462,9 @@ async function savePolicy(){
   const premMkif=isCar?parseFloat(document.getElementById('p-prem-mkif').value)||0:0;
   const premHova=isCar?parseFloat(document.getElementById('p-prem-hova').value)||0:0;
   const premSagrir=isCar?parseFloat(document.getElementById('p-prem-sagrir').value)||0:0;
-  const totalPrem=isCar?(premMkif+premHova+premSagrir)||null:parseFloat(document.getElementById('p-prem').value)||null;
-  const obj={client_id:parseInt(cid),policy_number:document.getElementById('p-polnum').value.trim(),product_type:document.getElementById('p-prod').value,insurance_company:document.getElementById('p-company').value,coverage_type:covType,premium_mkif:premMkif||null,premium_hova:premHova||null,premium_sagrir:premSagrir||null,start_date:document.getElementById('p-start').value,end_date:document.getElementById('p-end').value,renewal_date:document.getElementById('p-end').value,annual_premium:totalPrem,vehicle_number:document.getElementById('p-vnum').value.trim(),vehicle_make:document.getElementById('p-vmake').value.trim(),vehicle_model:document.getElementById('p-vmodel').value.trim(),vehicle_year:document.getElementById('p-vyear').value.trim(),property_address:document.getElementById('p-paddr').value.trim(),property_city:document.getElementById('p-pcity').value.trim(),property_floor:document.getElementById('p-pfloor').value.trim(),business_name:document.getElementById('p-bname').value.trim(),business_type:document.getElementById('p-btype').value.trim(),business_address:document.getElementById('p-baddr').value.trim(),coverage_notes:document.getElementById('p-notes').value.trim(),is_active:true,created_at:new Date().toISOString()};
+  const premTsadg=isCar?parseFloat(document.getElementById('p-prem-tsadg').value)||0:0;
+  const totalPrem=isCar?(premMkif+premHova+premSagrir+premTsadg)||null:parseFloat(document.getElementById('p-prem').value)||null;
+  const obj={client_id:parseInt(cid),policy_number:document.getElementById('p-polnum').value.trim(),product_type:document.getElementById('p-prod').value,insurance_company:document.getElementById('p-company').value,coverage_type:covType,premium_mkif:premMkif||null,premium_hova:premHova||null,premium_sagrir:premSagrir||null,premium_tsadg:premTsadg||null,start_date:document.getElementById('p-start').value,end_date:document.getElementById('p-end').value,renewal_date:document.getElementById('p-end').value,annual_premium:totalPrem,vehicle_number:document.getElementById('p-vnum').value.trim(),vehicle_make:document.getElementById('p-vmake').value.trim(),vehicle_model:document.getElementById('p-vmodel').value.trim(),vehicle_year:document.getElementById('p-vyear').value.trim(),property_address:document.getElementById('p-paddr').value.trim(),property_city:document.getElementById('p-pcity').value.trim(),property_floor:document.getElementById('p-pfloor').value.trim(),business_name:document.getElementById('p-bname').value.trim(),business_type:document.getElementById('p-btype').value.trim(),business_address:document.getElementById('p-baddr').value.trim(),coverage_notes:document.getElementById('p-notes').value.trim(),is_active:true,created_at:new Date().toISOString()};
   if(id){obj.id=parseInt(id);const ex=await dbGet('policies',obj.id);if(ex){obj.renewal_status=ex.renewal_status;obj.renewal_notes=ex.renewal_notes}}
   let savedId;
   try{
@@ -1389,6 +1480,7 @@ async function savePolicy(){
     'mkif':    document.getElementById('p-doc-mkif')?.files[0]||null,
     'hova':    document.getElementById('p-doc-hova')?.files[0]||null,
     'sagrir':  document.getElementById('p-doc-sagrir')?.files[0]||null,
+    'tsadg':   document.getElementById('p-doc-tsadg')?.files[0]||null,
   };
   // סגור מודל מיד — העלאת קבצים תתבצע ברקע
   policies=(await dbAll('policies')).filter(p=>p.is_active!==false);
@@ -1415,6 +1507,7 @@ async function savePolicy(){
     uploadDocBg(_capturedFiles['mkif'],'mkif'),
     uploadDocBg(_capturedFiles['hova'],'hova'),
     uploadDocBg(_capturedFiles['sagrir'],'sagrir'),
+    uploadDocBg(_capturedFiles['tsadg'],'tsadg'),
   ]);
 }
 async function delPolicy(id){
@@ -1536,7 +1629,7 @@ function renderDocCur(pid){
 function docBtn(pid){
   const uploadBtn=`<button class="btn btn-sm btn-outline-secondary ba" onclick="quickUploadDoc(${pid})" title="העלה קובץ"><i class="bi bi-upload"></i></button>`;
   let btns='';
-  [['mkif','success','מקיף'],['hova','warning','חובה'],['sagrir','info','שגריר']].forEach(([s,col,lbl])=>{
+  [['mkif','success','מקיף'],['hova','warning','חובה'],['sagrir','info','שגריר'],['tsadg','secondary','צד ג׳']].forEach(([s,col,lbl])=>{
     const m=getDocMeta(pid,s);
     if(m&&m.url)btns+=`<button class="btn btn-sm btn-${col} ba ms-1" style="font-size:10px;padding:2px 5px" onclick="openDocModal(${pid},'${s}')" title="${lbl}"><i class="bi bi-file-earmark-check-fill"></i> ${lbl}</button>`;
   });
@@ -2122,6 +2215,14 @@ async function clearAllData(){
    INIT
 ══════════════════════════════════════════════ */
 openDB().then(async()=>{await migrateFromLocalStorage();loadDash();}).catch(e=>alert('שגיאה בחיבור לענן: '+e.message));
+
+/* ══════════════════════════════════════════════
+   SORT — מיון טבלאות
+══════════════════════════════════════════════ */
+let _pSortCol='end_date',_pSortDir=1;
+let _cSortCol='name',_cSortDir=1;
+function sortP(col){if(_pSortCol===col)_pSortDir*=-1;else{_pSortCol=col;_pSortDir=1;}renderPolicies();}
+function sortC(col){if(_cSortCol===col)_cSortDir*=-1;else{_cSortCol=col;_cSortDir=1;}renderClients();}
 
 /* ══════════════════════════════════════════════
    MOBILE NAV & MENU
