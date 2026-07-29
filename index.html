@@ -88,7 +88,7 @@ label{font-weight:600;font-size:13px;color:#374151}
 .mcard .mci-c{background:#0f1923;color:#fff}
 .mcard .mci-p{background:#0f1923;color:#fff;font-size:11px}
 .mcard .mcf{flex:1;min-width:0}
-.mcard .mcn{font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Heebo',sans-serif}
+.mcard .mcn{font-weight:800;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;font-family:'Heebo',sans-serif}
 .mcard .mcd{font-size:12px;color:#64748b;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mcard .mcr{flex-shrink:0;text-align:left;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 .mcard .mcft{padding:5px 14px 9px;display:flex;flex-wrap:wrap;gap:4px;border-top:1px solid #f1f5f9}
@@ -164,9 +164,12 @@ label{font-weight:600;font-size:13px;color:#374151}
     </div>
     <span id="mob-sync" title="סטטוס חיבור"></span>
   </div>
-  <div id="mhdr-search" onclick="focusMobSearch()">
-    <i class="bi bi-search"></i>
-    <span id="mhdr-search-lbl">חיפוש לקוח, ת.ז., רישוי, פוליסה</span>
+  <div id="mhdr-search" style="display:flex;align-items:center;gap:8px;margin:0 14px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:0 12px">
+    <i class="bi bi-search" style="color:rgba(255,255,255,.55);font-size:15px;flex-shrink:0"></i>
+    <input id="mhdr-search-input" type="text" placeholder="חיפוש לקוח, ת.ז., טלפון, רישוי..." autocomplete="off"
+      style="flex:1;background:none;border:none;outline:none;color:#fff;font-size:13.5px;padding:9px 0;font-family:inherit"
+      oninput="globalMobSearch(this.value)">
+    <button id="mhdr-search-clear" onclick="clearMobSearch()" style="display:none;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;padding:0;cursor:pointer;line-height:1">×</button>
   </div>
 </div>
 <div id="mob-ov" onclick="closeMobMenu()"></div>
@@ -179,7 +182,7 @@ label{font-weight:600;font-size:13px;color:#374151}
     <a href="#" onclick="nav('alerts')" id="n-alerts"><i class="bi bi-bell-fill"></i><span>התראות חידוש</span><span id="abadge" class="badge bg-danger ms-auto d-none"></span></a>
     <a href="#" onclick="nav('clients')" id="n-clients"><i class="bi bi-people-fill"></i><span>לקוחות</span></a>
     <a href="#" onclick="nav('policies')" id="n-policies"><i class="bi bi-file-earmark-text-fill"></i><span>פוליסות</span></a>
-    <a href="#" onclick="nav('import')" id="n-import"><i class="bi bi-cloud-upload-fill"></i><span>ייבוא נתונים</span></a>
+    <a href="#" onclick="nav('import')" id="n-import" style="display:none"><i class="bi bi-cloud-upload-fill"></i><span>ייבוא נתונים</span></a>
   </nav>
   <div id="sync-status" style="padding:8px 16px;display:flex;align-items:center;gap:7px;border-top:1px solid rgba(255,255,255,.1);margin-top:auto">
     <span id="sync-dot" style="width:9px;height:9px;border-radius:50%;background:#94a3b8;flex-shrink:0;transition:background .4s"></span>
@@ -434,7 +437,7 @@ label{font-weight:600;font-size:13px;color:#374151}
   <a href="#" onclick="nav('policies');return false" id="mn-policies">
     <i class="bi bi-shield-fill"></i><span>פוליסות</span>
   </a>
-  <a href="#" onclick="nav('import');return false" id="mn-import">
+  <a href="#" onclick="nav('import');return false" id="mn-import" style="display:none">
     <i class="bi bi-cloud-arrow-up-fill"></i><span>ייבוא</span>
   </a>
 </div>
@@ -1093,15 +1096,16 @@ function renderMobUrgent(list){
     const diff=Math.floor((new Date(p.renewal_date)-new Date())/86400000);
     const isUrgent=diff<=7;
     const initials=getInitials(c.name||'?');
-    return`<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid #f1f5f9;border-right:3px solid ${isUrgent?'var(--brand)':'#94a3b8'}">
+    return`<div onclick="editPolicy(${p.id})" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid #f1f5f9;border-right:3px solid ${isUrgent?'var(--brand)':'#94a3b8'};cursor:pointer;-webkit-tap-highlight-color:transparent" ontouchstart="this.style.background='#f8fafc'" ontouchend="this.style.background=''">
       <div style="width:38px;height:38px;background:${isUrgent?'var(--brand)':'#1e293b'};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">${initials}</div>
       <div style="flex:1;min-width:0">
         <div style="font-weight:800;font-size:14px">${escHtml(c.name||'—')}</div>
-        <div style="font-size:12px;color:#64748b">${escHtml(p.insurance_company||'—')} · ${pbadge(p.product_type)||p.product_type}</div>
+        <div style="font-size:12px;color:#64748b">${escHtml(p.insurance_company||'—')} · ${p.product_type==='car'?'רכב':p.product_type==='apartment'?'דירה':'עסק'}</div>
       </div>
       <div style="text-align:left;flex-shrink:0">
         <div style="font-size:12px;font-weight:800;color:${isUrgent?'var(--brand)':'#475569'}">בעוד ${diff} ימים</div>
         ${p.annual_premium?`<div style="font-size:13px;font-weight:700">₪${Number(p.annual_premium).toLocaleString('he-IL')}</div>`:''}
+        <i class="bi bi-chevron-left" style="font-size:11px;color:#94a3b8"></i>
       </div>
     </div>`;
   }).join('');
@@ -1533,8 +1537,16 @@ async function editPolicy(id){
   ['p-doc-mkif','p-doc-hova','p-doc-sagrir'].forEach(x=>document.getElementById(x).value='');
   const showDocCur=(suffix,pid)=>{
     const el=document.getElementById('p-doc-'+suffix+'-cur');
+    if(!el)return;
     const m=getDocMeta(pid,suffix);
-    if(m&&m.url){el.innerHTML=`<span class="badge bg-success"><i class="bi bi-check2"></i> ${escHtml(m.name)}</span>`;}else el.innerHTML='';
+    if(m&&m.url){
+      const sz=m.size<1024*1024?(m.size/1024).toFixed(0)+'KB':((m.size/1024/1024).toFixed(1))+'MB';
+      el.innerHTML=`<div class="d-flex align-items-center gap-1 mt-1">
+        <span class="badge bg-success"><i class="bi bi-file-earmark-check me-1"></i>${escHtml(m.name)} (${sz})</span>
+        <button type="button" class="btn btn-sm btn-outline-primary ba" onclick="openDocModal(${pid},'${suffix}')"><i class="bi bi-eye"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-danger ba" onclick="delDocSuffix(${pid},'${suffix}')"><i class="bi bi-trash"></i></button>
+      </div>`;
+    }else el.innerHTML='';
   };
   showDocCur('mkif',p.id);showDocCur('hova',p.id);showDocCur('sagrir',p.id);
   updateCovSections();
@@ -1706,6 +1718,14 @@ async function delDoc(pid,suffix){
   if(!confirm('למחוק את קובץ הפוליסה?'))return;
   await deleteDocFB(pid,suffix||'generic');
   renderDocCur(pid);toast('קובץ נמחק');
+}
+async function delDocSuffix(pid,suffix){
+  if(!confirm('למחוק את הקובץ?'))return;
+  await deleteDocFB(pid,suffix);
+  // refresh the cur display
+  const el=document.getElementById('p-doc-'+suffix+'-cur');
+  if(el)el.innerHTML='';
+  toast('קובץ נמחק');
 }
 function renderDocCur(pid){
   const el=document.getElementById('p-doc-cur');if(!el)return;
@@ -2322,13 +2342,34 @@ function mobFabAction(){
   if(curSection==='clients')openClientModal();
   else if(curSection==='policies')openPolicyModal();
 }
-function focusMobSearch(){
-  const el=document.getElementById('csrch-mob')||document.getElementById('psrch-mob');
-  if(el){el.focus();el.select();}
-  else{
-    nav('clients');
-    setTimeout(()=>{const e2=document.getElementById('csrch-mob');if(e2){e2.focus();}},200);
+function globalMobSearch(val){
+  const clearBtn=document.getElementById('mhdr-search-clear');
+  if(clearBtn)clearBtn.style.display=val?'block':'none';
+  if(!val){
+    // clear all searches
+    const ci=document.getElementById('csrch');const pi=document.getElementById('psrch');
+    if(ci)ci.value='';if(pi)pi.value='';
+    if(curSection==='clients')renderClients();
+    else if(curSection==='policies')renderPolicies();
+    return;
   }
+  // Always navigate to clients when searching
+  if(curSection!=='clients'&&curSection!=='policies')nav('clients');
+  const ci=document.getElementById('csrch');
+  const cm=document.getElementById('csrch-mob');
+  if(ci)ci.value=val;
+  if(cm)cm.value=val;
+  if(curSection==='clients'||curSection==='dashboard')renderClients();
+  else if(curSection==='policies'){
+    const pi=document.getElementById('psrch');
+    const pm=document.getElementById('psrch-mob');
+    if(pi)pi.value=val;if(pm)pm.value=val;
+    renderPolicies();
+  }
+}
+function clearMobSearch(){
+  const inp=document.getElementById('mhdr-search-input');
+  if(inp){inp.value='';inp.dispatchEvent(new Event('input'));}
 }
 function initMobileHeader(){
   const hdr=document.getElementById('mhdr');
