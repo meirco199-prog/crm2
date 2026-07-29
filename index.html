@@ -6,33 +6,34 @@
 <title>CRM ביטוח אלמנטרי</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
-:root{--sw:230px;--brand:#1a3a6e;--accent:#2563eb}
-body{background:#f1f5f9;font-family:'Segoe UI',Arial,sans-serif;font-size:14px}
-#sidebar{position:fixed;right:0;top:0;bottom:0;width:var(--sw);background:var(--brand);color:#fff;z-index:100;display:flex;flex-direction:column;box-shadow:-3px 0 15px rgba(0,0,0,.25)}
-#sidebar .brand{padding:20px 16px 12px;border-bottom:1px solid rgba(255,255,255,.12);font-size:17px;font-weight:700}
-#sidebar .brand small{display:block;font-size:11px;opacity:.6;font-weight:400;margin-top:2px}
-#sidebar nav a{display:flex;align-items:center;gap:10px;padding:11px 18px;color:rgba(255,255,255,.8);text-decoration:none;border-right:3px solid transparent;transition:.15s}
-#sidebar nav a:hover{background:rgba(255,255,255,.08);color:#fff}
-#sidebar nav a.active{background:rgba(255,255,255,.13);color:#fff;border-right-color:#60a5fa}
+:root{--sw:230px;--brand:#1a6fc4;--accent:#1a6fc4;--brand-dark:#0d4f92}
+body{background:#f1f5f9;font-family:'Heebo','Segoe UI',Arial,sans-serif;font-size:14px}
+#sidebar{position:fixed;right:0;top:0;bottom:0;width:var(--sw);background:#0f1923;color:#fff;z-index:100;display:flex;flex-direction:column}
+#sidebar .brand{padding:20px 16px 14px;border-bottom:2px solid rgba(255,255,255,.1);font-size:15px;font-weight:800;letter-spacing:.01em}
+#sidebar .brand small{display:block;font-size:11px;opacity:.5;font-weight:400;margin-top:3px}
+#sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 18px;color:rgba(255,255,255,.7);text-decoration:none;border-right:none;transition:.12s;font-size:13.5px}
+#sidebar nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+#sidebar nav a.active{background:var(--brand);color:#fff;font-weight:700}
 #sidebar nav a i{font-size:16px;width:20px;text-align:center}
-#sidebar .sf{padding:12px 16px;font-size:11px;opacity:.45;border-top:1px solid rgba(255,255,255,.1)}
+#sidebar .sf{padding:12px 16px;font-size:11px;opacity:.4;border-top:2px solid rgba(255,255,255,.08)}
 #main{margin-right:var(--sw);min-height:100vh}
 .ph{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;display:flex;align-items:center;gap:12px}
 .ph h5{margin:0;font-weight:700;color:#1e293b}
 .ct{padding:24px}
-.sc{background:#fff;border-radius:12px;padding:18px 20px;border-left:4px solid var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sc{background:#fff;border-radius:0;padding:18px 20px;border-left:4px solid var(--accent);border-top:2px solid #e2e8f0;border-right:none;border-bottom:none}
 .sc.red{border-left-color:#ef4444}.sc.grn{border-left-color:#22c55e}.sc.org{border-left-color:#f97316}
-.sc .lbl{font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:.4px}
-.sc .val{font-size:28px;font-weight:700;color:#1e293b;line-height:1;margin-top:4px}
+.sc .lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px}
+.sc .val{font-size:28px;font-weight:800;color:#1e293b;line-height:1;margin-top:4px;font-family:'Heebo',sans-serif}
 .ar{background:#fff;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;border-right:4px solid #ddd;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .ar.danger{border-right-color:#ef4444}.ar.warning{border-right-color:#f97316}.ar.info{border-right-color:#2563eb}.ar.success-border{border-right-color:#22c55e;opacity:.7}
 .ar .mi{flex:1}.ar .cn{font-weight:700;font-size:14px}.ar .det{font-size:12px;color:#64748b;margin-top:2px}
 .bt{font-size:11px;padding:3px 8px;border-radius:4px;font-weight:600}
 .bt-car{background:#dbeafe;color:#1d4ed8}.bt-apt{background:#dcfce7;color:#166534}.bt-biz{background:#fef3c7;color:#92400e}
 .bt-renewed{background:#d1fae5;color:#065f46}.bt-norenew{background:#fee2e2;color:#991b1b}
-.tc{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.tc{background:#fff;border-radius:0;overflow:hidden;border:1px solid #e2e8f0}
 .tb{padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
 .tb h6{margin:0;font-weight:700}
 .table thead th{background:#f8fafc;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#475569;border-bottom:1px solid #e2e8f0;padding:10px 14px}
@@ -60,47 +61,55 @@ label{font-weight:600;font-size:13px;color:#374151}
 /* ═══════════════════════════════════════
    MOBILE RESPONSIVE — גרסת מובייל
 ═══════════════════════════════════════ */
-#mhdr{display:none;position:fixed;top:0;right:0;left:0;height:56px;background:var(--brand);color:#fff;z-index:200;align-items:center;padding:0 16px;gap:10px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-#mhdr .mht{font-weight:700;font-size:15px;line-height:1.2}
-#mhdr .mhs{font-size:10px;opacity:.6}
-#mob-menu-btn{background:none;border:none;color:#fff;font-size:24px;padding:4px 6px;line-height:1;cursor:pointer;flex-shrink:0}
-#mob-sync{width:9px;height:9px;border-radius:50%;background:#94a3b8;transition:background .4s;margin-right:auto;flex-shrink:0}
+#mhdr{display:none;position:fixed;top:0;right:0;left:0;z-index:200;background:#0f1923;color:#fff;flex-direction:column;padding:0}
+#mhdr-top{display:flex;align-items:center;padding:10px 14px 6px;gap:10px}
+#mhdr-brand{flex:1}
+#mhdr-brand .mht{font-weight:800;font-size:14px;letter-spacing:.01em}
+#mhdr-brand .mhs{font-size:10px;opacity:.5;margin-top:1px}
+#mob-menu-btn{background:none;border:none;color:#fff;font-size:22px;padding:4px 6px;line-height:1;cursor:pointer;flex-shrink:0}
+#mob-sync{width:8px;height:8px;border-radius:50%;background:#94a3b8;transition:background .4s;flex-shrink:0}
+#mhdr-search{display:flex;align-items:center;gap:8px;margin:0 14px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:9px 12px;color:rgba(255,255,255,.65);font-size:13.5px;cursor:pointer}
+#mhdr-search i{font-size:15px}
 
 #mob-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:155;transition:opacity .25s}
 #mob-ov.on{display:block}
 
-#mnav{display:none;position:fixed;bottom:0;right:0;left:0;height:62px;background:#fff;border-top:1px solid #e2e8f0;z-index:200;align-items:stretch;box-shadow:0 -2px 14px rgba(0,0,0,.1)}
-#mnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;text-decoration:none;color:#94a3b8;font-size:10px;font-weight:600;padding:4px 2px;transition:color .15s;position:relative;-webkit-tap-highlight-color:transparent;user-select:none}
-#mnav a.active{color:var(--accent)}
-#mnav a i{font-size:22px}
+#mnav{display:none;position:fixed;bottom:0;right:0;left:0;height:60px;background:#fff;border-top:2px solid #e2e8f0;z-index:200;align-items:stretch}
+#mnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#94a3b8;font-size:10px;font-weight:600;padding:6px 2px 4px;transition:color .12s;position:relative;-webkit-tap-highlight-color:transparent;user-select:none;border-top:2px solid transparent;margin-top:-2px}
+#mnav a.active{color:var(--brand);border-top-color:var(--brand);font-weight:800}
+#mnav a i{font-size:20px}
 #mnav a .mnb{position:absolute;top:4px;right:calc(50% - 20px);background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:8px;padding:1px 5px;min-width:15px;text-align:center;line-height:14px}
 
 /* Mobile card list */
-.mcard{background:#fff;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .1s}
-.mcard:active{transform:scale(.99)}
-.mcard .mcb{padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.mcard .mci{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;font-weight:700}
-.mcard .mci-c{background:#eff6ff;color:#2563eb}
-.mcard .mci-p{background:#f0fdf4;font-size:22px}
+.mcard{background:#fff;border-radius:0;margin-bottom:1px;border-bottom:1px solid #e8ecf0;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.mcard:active{background:#f8fafc}
+.mcard .mcb{padding:13px 14px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.mcard .mci{width:40px;height:40px;border-radius:0;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;font-weight:800;font-family:'Heebo',sans-serif}
+.mcard .mci-c{background:#0f1923;color:#fff}
+.mcard .mci-p{background:#0f1923;color:#fff;font-size:11px}
 .mcard .mcf{flex:1;min-width:0}
-.mcard .mcn{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard .mcn{font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Heebo',sans-serif}
 .mcard .mcd{font-size:12px;color:#64748b;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mcard .mcr{flex-shrink:0;text-align:left;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
-.mcard .mcft{padding:6px 14px 10px;display:flex;flex-wrap:wrap;gap:4px;border-top:1px solid #f8fafc}
+.mcard .mcft{padding:5px 14px 9px;display:flex;flex-wrap:wrap;gap:4px;border-top:1px solid #f1f5f9}
+.mcard.urgent{border-right:3px solid var(--brand)}
+.mcard.expired{border-right:3px solid #ef4444}
+/* Alphabetical / month section header */
+.m-sec-hdr{background:#f8fafc;padding:5px 14px;font-size:11.5px;font-weight:800;color:#475569;letter-spacing:.04em;border-bottom:1px solid #e2e8f0}
 
-.msrch{padding:8px 12px 6px;background:#f1f5f9;position:sticky;top:56px;z-index:5}
-.msrch .form-control{border-radius:10px;font-size:14px!important;background:#fff}
+.msrch{padding:8px 12px 6px;background:#f1f5f9;position:sticky;top:0;z-index:5}
+.msrch .form-control{border-radius:0;font-size:14px!important;background:#fff;border:1px solid #d1d5db}
 .mflt{padding:0 12px 8px;background:#f1f5f9;display:flex;gap:8px}
-.mflt .form-select{border-radius:10px;font-size:13px!important;background:#fff}
+.mflt .form-select{border-radius:0;font-size:13px!important;background:#fff}
 
 /* FAB button for mobile */
-.mob-fab{display:none;position:fixed;bottom:72px;left:16px;width:52px;height:52px;border-radius:26px;background:var(--accent);color:#fff;border:none;font-size:24px;box-shadow:0 4px 16px rgba(37,99,235,.45);z-index:190;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.mob-fab{display:none;position:fixed;bottom:70px;left:16px;width:52px;height:52px;border-radius:0;background:var(--brand);color:#fff;border:none;font-size:24px;box-shadow:0 4px 16px rgba(26,111,196,.5);z-index:190;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent}
 .mob-fab:active{transform:scale(.93)}
 
 @media(max-width:767.98px){
-  #sidebar{transform:translateX(100%);transition:transform .25s ease;top:56px;z-index:160}
+  #sidebar{transform:translateX(100%);transition:transform .25s ease;top:0;z-index:160}
   #sidebar.open{transform:translateX(0)}
-  #main{margin-right:0!important;padding-top:56px;padding-bottom:68px}
+  #main{margin-right:0!important;padding-top:var(--mhdr-h,92px);padding-bottom:68px}
   #mhdr{display:flex}
   #mnav{display:flex}
   .ph{padding:10px 14px}
@@ -108,9 +117,9 @@ label{font-weight:600;font-size:13px;color:#374151}
   .ph h5{font-size:14px}
   /* Bottom-sheet modals */
   .modal-dialog{margin:0!important;max-width:100%!important;min-height:100%!important;display:flex!important;align-items:flex-end!important}
-  .modal-content{border-radius:20px 20px 0 0!important;max-height:93vh;overflow-y:auto;width:100%}
+  .modal-content{border-radius:0!important;max-height:93vh;overflow-y:auto;width:100%}
   .modal-xl,.modal-lg,.modal-sm{max-width:100%!important}
-  .modal-header{border-radius:20px 20px 0 0!important}
+  .modal-header{border-radius:0!important}
   /* Prevent iOS input zoom */
   input,select,textarea{font-size:16px!important}
   /* Alert rows */
@@ -147,12 +156,18 @@ label{font-weight:600;font-size:13px;color:#374151}
 
 <!-- MOBILE HEADER -->
 <div id="mhdr">
-  <button id="mob-menu-btn" onclick="toggleMobMenu()" aria-label="תפריט"><i class="bi bi-list"></i></button>
-  <div>
-    <div class="mht"><i class="bi bi-shield-check me-1"></i>CRM ביטוח</div>
-    <div class="mhs">ניהול לקוחות אלמנטרי</div>
+  <div id="mhdr-top">
+    <button id="mob-menu-btn" onclick="toggleMobMenu()" aria-label="תפריט"><i class="bi bi-list"></i></button>
+    <div id="mhdr-brand">
+      <div class="mht">יהב CRM · ביטוח אלמנטרי</div>
+      <div class="mhs" id="mhdr-greeting">טוען...</div>
+    </div>
+    <span id="mob-sync" title="סטטוס חיבור"></span>
   </div>
-  <span id="mob-sync" title="סטטוס חיבור"></span>
+  <div id="mhdr-search" onclick="focusMobSearch()">
+    <i class="bi bi-search"></i>
+    <span id="mhdr-search-lbl">חיפוש לקוח, ת.ז., רישוי, פוליסה</span>
+  </div>
 </div>
 <div id="mob-ov" onclick="closeMobMenu()"></div>
 
@@ -241,8 +256,8 @@ label{font-weight:600;font-size:13px;color:#374151}
     </div>
     <!-- Mobile cards -->
     <div class="mc-wrap">
-      <div class="msrch"><input id="csrch-mob" type="text" class="form-control" placeholder="🔍 חיפוש לקוח..." oninput="document.getElementById('csrch').value=this.value;renderClients()"></div>
-      <div id="cmob" style="padding:0 10px 10px"></div>
+      <div class="msrch" style="top:var(--mhdr-h,92px)"><input id="csrch-mob" type="text" class="form-control" placeholder="חיפוש לקוח..." oninput="document.getElementById('csrch').value=this.value;renderClients()"></div>
+      <div id="cmob" style="padding:0"></div>
     </div>
   </div></div>
 </section>
@@ -283,7 +298,7 @@ label{font-weight:600;font-size:13px;color:#374151}
     </div>
     <!-- Mobile cards -->
     <div class="mc-wrap">
-      <div class="msrch"><input id="psrch-mob" type="text" class="form-control" placeholder="🔍 חיפוש פוליסה..." oninput="document.getElementById('psrch').value=this.value;renderPolicies()"></div>
+      <div class="msrch" style="top:var(--mhdr-h,92px)"><input id="psrch-mob" type="text" class="form-control" placeholder="חיפוש פוליסה..." oninput="document.getElementById('psrch').value=this.value;renderPolicies()"></div>
       <div class="mflt">
         <select class="form-select form-select-sm" onchange="document.getElementById('pflt').value=this.value;renderPolicies()">
           <option value="">כל הסוגים</option>
@@ -341,20 +356,20 @@ label{font-weight:600;font-size:13px;color:#374151}
 <!-- MOBILE BOTTOM NAV -->
 <div id="mnav">
   <a href="#" onclick="nav('dashboard');return false" id="mn-dashboard" class="active">
-    <i class="bi bi-speedometer2"></i><span>בקרה</span>
+    <i class="bi bi-grid-fill"></i><span>בקרה</span>
   </a>
   <a href="#" onclick="nav('alerts');return false" id="mn-alerts">
-    <i class="bi bi-bell-fill"></i><span>התראות</span>
+    <i class="bi bi-bell-fill"></i><span>חידושים</span>
     <span id="mn-abadge" class="mnb d-none"></span>
   </a>
   <a href="#" onclick="nav('clients');return false" id="mn-clients">
     <i class="bi bi-people-fill"></i><span>לקוחות</span>
   </a>
   <a href="#" onclick="nav('policies');return false" id="mn-policies">
-    <i class="bi bi-file-earmark-text-fill"></i><span>פוליסות</span>
+    <i class="bi bi-shield-fill"></i><span>פוליסות</span>
   </a>
   <a href="#" onclick="nav('import');return false" id="mn-import">
-    <i class="bi bi-cloud-upload-fill"></i><span>ייבוא</span>
+    <i class="bi bi-cloud-arrow-up-fill"></i><span>ייבוא</span>
   </a>
 </div>
 
@@ -752,6 +767,9 @@ function nav(s){
   document.getElementById('sec-'+s).classList.add('active');
   document.getElementById('n-'+s).classList.add('active');
   const mn=document.getElementById('mn-'+s);if(mn)mn.classList.add('active');
+  // Update header search label
+  const sl=document.getElementById('mhdr-search-lbl');
+  if(sl){const lmap={clients:'חיפוש לקוח...',policies:'חיפוש פוליסה...',dashboard:'חיפוש לקוח, ת.ז., רישוי...',alerts:'חיפוש חידוש...',import:'ייבוא נתונים'};sl.textContent=lmap[s]||'חיפוש...';}
   closeMobMenu();
   // Update FAB visibility
   const fab=document.getElementById('mob-fab');
@@ -2113,6 +2131,7 @@ async function clearAllData(){
 /* ══════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════ */
+initMobileHeader();
 openDB().then(async()=>{await migrateFromLocalStorage();loadDash();}).catch(e=>alert('שגיאה בחיבור לענן: '+e.message));
 
 /* ══════════════════════════════════════════════
@@ -2130,6 +2149,32 @@ function mobFabAction(){
   if(curSection==='clients')openClientModal();
   else if(curSection==='policies')openPolicyModal();
 }
+function focusMobSearch(){
+  const el=document.getElementById('csrch-mob')||document.getElementById('psrch-mob');
+  if(el){el.focus();el.select();}
+  else{
+    nav('clients');
+    setTimeout(()=>{const e2=document.getElementById('csrch-mob');if(e2){e2.focus();}},200);
+  }
+}
+function initMobileHeader(){
+  const hdr=document.getElementById('mhdr');
+  if(!hdr)return;
+  // Set padding-top dynamically
+  const setH=()=>{
+    const h=hdr.offsetHeight;
+    document.documentElement.style.setProperty('--mhdr-h',h+'px');
+  };
+  setH();
+  new ResizeObserver(setH).observe(hdr);
+  // Greeting
+  const greet=document.getElementById('mhdr-greeting');
+  if(greet){
+    const hr=new Date().getHours();
+    const txt=hr<12?'בוקר טוב':hr<17?'צהריים טובים':'ערב טוב';
+    greet.textContent=txt;
+  }
+}
 
 /* ══════════════════════════════════════════════
    MOBILE CLIENT CARDS
@@ -2141,36 +2186,69 @@ function renderMobileClients(list){
     el.innerHTML=`<div class="es py-4"><i class="bi bi-person-x"></i><div>אין לקוחות</div></div>`;
     return;
   }
-  el.innerHTML=list.map(c=>{
-    const pc=policies.filter(p=>p.client_id===c.id).length;
-    const carPols=policies.filter(p=>p.client_id===c.id&&p.product_type==='car');
-    const aptPols=policies.filter(p=>p.client_id===c.id&&p.product_type==='apartment');
-    const bizPols=policies.filter(p=>p.client_id===c.id&&p.product_type==='business');
-    const typeIcons=[...carPols.map(()=>'<span class="bt bt-car" style="font-size:10px">🚗 רכב</span>'),
-                     ...aptPols.map(()=>'<span class="bt bt-apt" style="font-size:10px">🏠 דירה</span>'),
-                     ...bizPols.map(()=>'<span class="bt bt-biz" style="font-size:10px">🏢 עסק</span>')].join('');
-    const initial=(c.name||'?').charAt(0);
-    const isFallback=c.name&&/^לקוח\s*\d/.test(c.name);
-    const colors=['#3b82f6','#22c55e','#f97316','#a855f7','#14b8a6','#ec4899','#64748b'];
-    const bg=colors[((c.id||0)%colors.length)];
-    return`<div class="mcard">
+  const todayStr=today();
+  // Group by first letter
+  const groups={};
+  list.forEach(c=>{
+    const letter=(c.name||'?').charAt(0);
+    if(!groups[letter])groups[letter]=[];
+    groups[letter].push(c);
+  });
+  const html=[];
+  Object.keys(groups).sort((a,b)=>a.localeCompare(b,'he')).forEach(letter=>{
+    html.push(`<div class="m-sec-hdr">${letter}</div>`);
+    groups[letter].forEach(c=>{
+      const pc=policies.filter(p=>p.client_id===c.id).length;
+      const urgentPol=policies.find(p=>p.client_id===c.id&&(()=>{
+        const rd=p.renewal_date||p.end_date||'';
+        if(!rd)return false;
+        const diff=Math.floor((new Date(rd)-new Date())/86400000);
+        return diff>=0&&diff<=14;
+      })());
+      const expiredPol=policies.find(p=>p.client_id===c.id&&(()=>{
+        const rd=p.renewal_date||p.end_date||'';
+        return rd&&rd<todayStr;
+      })());
+      const initials=getInitials(c.name||'?');
+      const isFallback=c.name&&/^לקוח\s*\d/.test(c.name);
+      const typeIcons=policies.filter(p=>p.client_id===c.id).map(p=>{
+        if(p.product_type==='car')return`<span class="bt bt-car" style="font-size:10px">🚗 רכב</span>`;
+        if(p.product_type==='apartment')return`<span class="bt bt-apt" style="font-size:10px">🏠 דירה</span>`;
+        return`<span class="bt bt-biz" style="font-size:10px">🏢 עסק</span>`;
+      }).join('');
+      const cardCls=urgentPol?'mcard urgent':expiredPol?'mcard expired':'mcard';
+      let badge='';
+      if(urgentPol){
+        const diff=Math.floor((new Date(urgentPol.renewal_date||urgentPol.end_date)-new Date())/86400000);
+        badge=`<span class="badge" style="background:var(--brand);font-size:10px">${diff<=0?'דחוף':diff+' ימים'}</span>`;
+      } else if(pc>0){
+        badge=`<span style="font-size:11px;color:#64748b;font-weight:700">${pc} פוליסות</span>`;
+      }
+      html.push(`<div class="${cardCls}">
       <div class="mcb" onclick="openClientProfile(${c.id})">
-        <div class="mci mci-c" style="background:${bg}20;color:${bg}">${initial}</div>
+        <div class="mci mci-c">${initials}</div>
         <div class="mcf">
           <div class="mcn${isFallback?' text-warning':''}">${escHtml(c.name||'ללא שם')}</div>
           <div class="mcd">
-            ${c.phone?`<a href="tel:${c.phone}" onclick="event.stopPropagation()" style="color:#2563eb">${c.phone}</a>`:'—'}
+            ${c.phone?`<a href="tel:${c.phone}" onclick="event.stopPropagation()" style="color:var(--brand)">${c.phone}</a>`:'—'}
             ${c.city?` · ${escHtml(c.city)}`:''}
           </div>
         </div>
         <div class="mcr">
-          <span class="badge bg-primary">${pc}</span>
-          <i class="bi bi-chevron-left text-muted" style="font-size:13px"></i>
+          ${badge}
+          <i class="bi bi-chevron-left text-muted" style="font-size:12px"></i>
         </div>
       </div>
       ${typeIcons?`<div class="mcft">${typeIcons}</div>`:''}
-    </div>`;
-  }).join('');
+    </div>`);
+    });
+  });
+  el.innerHTML=html.join('');
+}
+function getInitials(name){
+  const parts=(name||'?').trim().split(/\s+/);
+  if(parts.length>=2)return parts[0].charAt(0)+parts[1].charAt(0);
+  return parts[0].charAt(0);
 }
 
 /* ══════════════════════════════════════════════
@@ -2184,44 +2262,72 @@ function renderMobilePolicies(list){
     return;
   }
   const todayStr=today();
-  el.innerHTML=list.map(p=>{
-    const c=clients.find(x=>x.id===p.client_id)||{};
-    const typeIcon=p.product_type==='car'?'🚗':p.product_type==='apartment'?'🏠':'🏢';
-    const typeBg=p.product_type==='car'?'#dbeafe':p.product_type==='apartment'?'#dcfce7':'#fef3c7';
+  const heMonths=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  // Group by month
+  const groups={};
+  list.forEach(p=>{
     const rDate=p.renewal_date||p.end_date||'';
-    const expired=rDate&&rDate<todayStr;
-    const diff=rDate?Math.floor((new Date(rDate)-new Date())/86400000):-1;
-    const soon=!expired&&diff>=0&&diff<=30;
-    const dateColor=expired?'#ef4444':soon?'#f97316':'#475569';
-    const dateBg=expired?'#fee2e2':soon?'#fff7ed':'#f8fafc';
-    const premStr=p.annual_premium?'₪'+Number(p.annual_premium).toLocaleString('he-IL'):'';
-    const identStr=p.product_type==='car'?
-      (p.vehicle_number?`<span class="pn" style="font-size:11px">${fmtPlate(p.vehicle_number)}</span> ${covBadge(p.coverage_type)}`:''):
-      p.product_type==='apartment'?escHtml([p.property_address,p.property_city].filter(Boolean).join(', ')||''):
-      escHtml(p.business_name||'');
-    return`<div class="mcard">
+    const key=rDate?rDate.substring(0,7):'ללא תאריך';
+    if(!groups[key])groups[key]=[];
+    groups[key].push(p);
+  });
+  const html=[];
+  Object.keys(groups).sort().forEach(monthKey=>{
+    let hdr=monthKey;
+    if(monthKey.match(/^\d{4}-\d{2}$/)){
+      const [y,m]=monthKey.split('-');
+      hdr=heMonths[parseInt(m,10)-1]+' '+y;
+    }
+    html.push(`<div class="m-sec-hdr">${hdr}</div>`);
+    groups[monthKey].forEach(p=>{
+      const c=clients.find(x=>x.id===p.client_id)||{};
+      const typeLabel=p.product_type==='car'?'רכב':p.product_type==='apartment'?'דירה':'עסק';
+      const typeInit=p.product_type==='car'?'🚗':p.product_type==='apartment'?'🏠':'🏢';
+      const rDate=p.renewal_date||p.end_date||'';
+      const expired=rDate&&rDate<todayStr;
+      const diff=rDate?Math.floor((new Date(rDate)-new Date())/86400000):-1;
+      const soon=!expired&&diff>=0&&diff<=30;
+      const cardCls=expired?'mcard expired':soon&&diff<=7?'mcard urgent':'mcard';
+      const dateColor=expired?'#ef4444':soon?'#d97706':'#475569';
+      const premStr=p.annual_premium?'₪'+Number(p.annual_premium).toLocaleString('he-IL'):'';
+      const mkifPrem=p.premium_mkif?'₪'+Number(p.premium_mkif).toLocaleString('he-IL'):'';
+      const hovaPrem=p.premium_hova?'₪'+Number(p.premium_hova).toLocaleString('he-IL'):'';
+      const identStr=p.product_type==='car'?
+        (p.vehicle_number?fmtPlate(p.vehicle_number):''):
+        p.product_type==='apartment'?escHtml([p.property_address,p.property_city].filter(Boolean).join(', ')||''):
+        escHtml(p.business_name||'');
+      const premTags=[
+        mkifPrem?`<span style="background:#dbeafe;color:#1d4ed8;font-size:10px;padding:2px 7px;font-weight:700">מקיף ${mkifPrem}</span>`:'',
+        hovaPrem?`<span style="background:#f0fdf4;color:#166534;font-size:10px;padding:2px 7px;font-weight:700">חובה ${hovaPrem}</span>`:'',
+        !mkifPrem&&!hovaPrem&&premStr?`<span style="background:#f1f5f9;color:#475569;font-size:10px;padding:2px 7px;font-weight:700">${premStr}</span>`:'',
+      ].filter(Boolean).join('');
+      html.push(`<div class="${cardCls}">
       <div class="mcb" onclick="editPolicy(${p.id})">
-        <div class="mci mci-p" style="background:${typeBg}">${typeIcon}</div>
+        <div class="mci mci-p">${typeInit}<div style="font-size:8px;margin-top:2px">${typeLabel}</div></div>
         <div class="mcf">
           <div class="mcn">${escHtml(c.name||'—')}</div>
-          <div class="mcd">${escHtml(p.insurance_company||'—')} · <span class="pn" style="font-size:10px">${p.policy_number||'—'}</span></div>
+          <div class="mcd">${escHtml(p.insurance_company||'—')} · <span style="font-family:monospace;font-size:11px;background:#f1f5f9;padding:1px 4px">${p.policy_number||'—'}</span></div>
           ${identStr?`<div class="mcd mt-1">${identStr}</div>`:''}
         </div>
         <div class="mcr">
-          ${renewalBadge(p)||''}
-          <div class="mt-1 px-2 py-1 rounded" style="background:${dateBg};color:${dateColor};font-size:11px;font-weight:700;text-align:center">${fd(rDate)}</div>
-          ${premStr?`<div style="font-size:11px;color:#64748b">${premStr}</div>`:''}
+          <span style="font-size:11.5px;font-weight:800;color:${dateColor}">${fd(rDate)}</span>
+          ${expired?`<span style="background:#fee2e2;color:#991b1b;font-size:10px;padding:2px 6px;font-weight:800">לא חודש</span>`:
+            soon?`<span style="background:#fef3c7;color:#92400e;font-size:10px;padding:2px 6px;font-weight:800">${diff} ימים</span>`:''}
         </div>
       </div>
-      <div class="mcft" style="gap:6px">
-        <button class="btn btn-sm btn-outline-secondary ba" onclick="event.stopPropagation();editPolicy(${p.id})"><i class="bi bi-pencil me-1"></i>עריכה</button>
-        <button class="btn btn-sm btn-outline-primary ba" onclick="event.stopPropagation();quickUploadDoc(${p.id})"><i class="bi bi-upload me-1"></i>קובץ</button>
+      <div class="mcft" style="gap:5px;align-items:center">
+        ${premTags}
+        <span style="flex:1"></span>
+        <button class="btn btn-sm btn-outline-secondary ba" style="border-radius:0" onclick="event.stopPropagation();editPolicy(${p.id})"><i class="bi bi-pencil"></i></button>
+        <button class="btn btn-sm btn-outline-primary ba" style="border-radius:0" onclick="event.stopPropagation();quickUploadDoc(${p.id})"><i class="bi bi-upload"></i></button>
         ${getDocMeta(p.id,'generic')||getDocMeta(p.id,'mkif')||getDocMeta(p.id,'hova')?
-          `<button class="btn btn-sm btn-success ba" onclick="event.stopPropagation();openDocModal(${p.id},'${getDocMeta(p.id,'mkif')?'mkif':getDocMeta(p.id,'hova')?'hova':'generic'}')"><i class="bi bi-file-earmark-check me-1"></i>צפייה</button>`:''}
-        <button class="btn btn-sm btn-outline-danger ba" onclick="event.stopPropagation();delPolicy(${p.id})"><i class="bi bi-trash"></i></button>
+          `<button class="btn btn-sm btn-success ba" style="border-radius:0" onclick="event.stopPropagation();openDocModal(${p.id},'${getDocMeta(p.id,'mkif')?'mkif':getDocMeta(p.id,'hova')?'hova':'generic'}')"><i class="bi bi-file-earmark-check"></i></button>`:''}
+        <button class="btn btn-sm btn-outline-danger ba" style="border-radius:0" onclick="event.stopPropagation();delPolicy(${p.id})"><i class="bi bi-trash"></i></button>
       </div>
-    </div>`;
-  }).join('');
+    </div>`);
+    });
+  });
+  el.innerHTML=html.join('');
 }
 </script>
 </body>
