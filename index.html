@@ -17,25 +17,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
-:root{--sw:230px;--brand:#1a6fc4;--accent:#1a6fc4;--brand-dark:#0d4f92}
-body{background:#f1f5f9;font-family:'Heebo','Segoe UI',Arial,sans-serif;font-size:14px}
-#sidebar{position:fixed;right:0;top:0;bottom:0;width:var(--sw);background:#0f1923;color:#fff;z-index:100;display:flex;flex-direction:column}
-#sidebar .brand{padding:20px 16px 14px;border-bottom:2px solid rgba(255,255,255,.1);font-size:15px;font-weight:800;letter-spacing:.01em}
-#sidebar .brand small{display:block;font-size:11px;opacity:.5;font-weight:400;margin-top:3px}
-#sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 18px;color:rgba(255,255,255,.7);text-decoration:none;border-right:none;transition:.12s;font-size:13.5px}
-#sidebar nav a:hover{background:rgba(255,255,255,.06);color:#fff}
-#sidebar nav a.active{background:var(--brand);color:#fff;font-weight:700}
-#sidebar nav a i{font-size:16px;width:20px;text-align:center}
-#sidebar .sf{padding:12px 16px;font-size:11px;opacity:.4;border-top:2px solid rgba(255,255,255,.08)}
-#main{margin-right:var(--sw);min-height:100vh}
-.ph{background:#0f1923;border-bottom:2px solid var(--brand);padding:14px 24px;display:flex;align-items:center;gap:12px}
-.ph h5{margin:0;font-weight:800;color:#fff;font-family:'Heebo',sans-serif;font-size:16px}
-.ph i{color:rgba(255,255,255,.7)!important}
-.ph .text-muted{color:rgba(255,255,255,.4)!important}
-.ph .btn-primary{background:var(--brand);border-color:var(--brand);border-radius:0;font-weight:700}
-.ph .btn-outline-danger{border-radius:0}
-.ph .form-check-label{color:rgba(255,255,255,.7);font-size:13px}
-.ph .form-check-input{border-radius:0}
+:root{
+  --sw:246px;--brand:#1a6fc4;--accent:#1a6fc4;--brand-dark:#0d4f92;
+  --color-bg:#fff;--color-text:#0d1826;--color-surface:#f4f6f8;
+  --color-divider:#e2e8f0;--color-neutral-100:#f1f5f9;--color-neutral-400:#94a3b8;
+  --color-neutral-600:#475569;--color-neutral-800:#1e293b;--color-accent:#1a6fc4;
+  --sb:#0d1826;--sb-line:rgba(255,255,255,.14)
+}
+body{background:var(--color-bg);font-family:'Heebo','Segoe UI',Arial,sans-serif;font-size:14px;color:var(--color-text)}
+#sidebar{position:fixed;right:0;top:0;bottom:0;width:var(--sw);background:var(--sb);color:#fff;z-index:100;display:flex;flex-direction:column}
+#sidebar .sbhead{padding:16px 16px 14px;border-bottom:1px solid var(--sb-line);display:flex;align-items:center;gap:10px}
+#sidebar .sbmark{width:28px;height:28px;background:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
+#sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 16px;color:rgba(243,242,242,.72);text-decoration:none;transition:.12s;font-size:13.5px;font-weight:500}
+#sidebar nav a:hover{background:rgba(255,255,255,.07);color:#fff}
+#sidebar nav a.active{background:var(--brand);color:#fff;font-weight:800}
+#sidebar nav a .nav-dot{width:8px;height:8px;flex:none;background:rgba(243,242,242,.35)}
+#sidebar nav a.active .nav-dot{background:#fff}
+#sidebar .sbfoot{margin-top:auto;padding:14px 16px;border-top:1px solid var(--sb-line);display:flex;flex-direction:column;gap:10px}
+#main{margin-right:var(--sw);min-height:100vh;background:var(--color-bg)}
+/* sticky toolbar */
+.tools{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:2px solid var(--color-divider);background:var(--color-bg);position:sticky;top:0;z-index:50;flex-wrap:wrap}
+.tools-search{flex:1;min-width:200px;max-width:520px;display:flex;align-items:center;gap:8px;background:var(--color-surface);border:1px solid var(--color-divider);padding:0 12px}
+.tools-search input{border:0;background:transparent;padding:10px 0;font-size:13.5px;outline:none;font-family:inherit;flex:1;min-width:0;color:var(--color-text)}
+.tools-search input::placeholder{color:var(--color-neutral-400)}
+.tools-search i{color:var(--color-neutral-400);font-size:14px;flex-shrink:0}
+/* section layout */
+.pad{padding:24px;display:flex;flex-direction:column;gap:20px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--color-divider);border:1px solid var(--color-divider);border-top:2px solid var(--color-divider)}
+.kpi-cell{background:var(--color-bg);padding:18px}
+.kpi-cell .kpi-lbl{font-size:11.5px;color:var(--color-neutral-600)}
+.kpi-cell .kpi-val{font-weight:800;font-size:30px;line-height:1.1;font-family:'Heebo',sans-serif;color:var(--color-text)}
+.kpi-cell .kpi-sub{font-size:11px;color:var(--color-neutral-400);margin-top:2px}
+.kpi-cell.accent{background:var(--brand);color:#fff}
+.kpi-cell.accent .kpi-lbl,.kpi-cell.accent .kpi-sub{color:rgba(255,255,255,.85)}
+.kpi-cell.accent .kpi-val{color:#fff}
+.split{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:start}
+/* section header (inline, not dark) */
+.ph{background:var(--color-bg);border-bottom:2px solid var(--color-divider);padding:18px 24px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.ph h5{margin:0;font-weight:800;color:var(--color-text);font-family:'Heebo',sans-serif;font-size:20px}
+.ph .ph-sub{font-size:13px;color:var(--color-neutral-400)}
+.ph .ms-auto{margin-right:auto!important}
 .ct{padding:24px}
 .sc{background:#fff;border-radius:0;padding:18px 20px;border-left:4px solid var(--accent);border-top:2px solid #e2e8f0;border-right:none;border-bottom:none}
 .sc.red{border-left-color:#ef4444}.sc.grn{border-left-color:#22c55e}.sc.org{border-left-color:#f97316}
@@ -176,6 +197,10 @@ label{font-weight:700;font-size:13px;color:#1e293b;font-family:'Heebo',sans-seri
   .mc-wrap{display:none!important}
   .msrch,.mflt,.mob-fab{display:none!important}
 }
+@media(max-width:1080px){
+  .split{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(3,1fr)}
+}
 </style>
 </head>
 <body>
@@ -202,23 +227,49 @@ label{font-weight:700;font-size:13px;color:#1e293b;font-family:'Heebo',sans-seri
 
 <!-- SIDEBAR -->
 <div id="sidebar">
-  <div class="brand"><i class="bi bi-shield-check"></i> CRM ביטוח<small>ניהול לקוחות אלמנטרי</small></div>
-  <nav>
-    <a href="#" onclick="nav('dashboard')" id="n-dashboard" class="active"><i class="bi bi-speedometer2"></i><span>לוח בקרה</span></a>
-    <a href="#" onclick="nav('alerts')" id="n-alerts"><i class="bi bi-bell-fill"></i><span>התראות חידוש</span><span id="abadge" class="badge bg-danger ms-auto d-none"></span></a>
-    <a href="#" onclick="nav('clients')" id="n-clients"><i class="bi bi-people-fill"></i><span>לקוחות</span></a>
-    <a href="#" onclick="nav('policies')" id="n-policies"><i class="bi bi-file-earmark-text-fill"></i><span>פוליסות</span></a>
-    <a href="#" onclick="nav('import')" id="n-import" style="display:none"><i class="bi bi-cloud-upload-fill"></i><span>ייבוא נתונים</span></a>
-  </nav>
-  <div id="sync-status" style="padding:8px 16px;display:flex;align-items:center;gap:7px;border-top:1px solid rgba(255,255,255,.1);margin-top:auto">
-    <span id="sync-dot" style="width:9px;height:9px;border-radius:50%;background:#94a3b8;flex-shrink:0;transition:background .4s"></span>
-    <span id="sync-lbl" style="font-size:11px;opacity:.7;color:#fff">מתחבר לענן...</span>
+  <div class="sbhead">
+    <div class="sbmark">י</div>
+    <div style="display:flex;flex-direction:column;min-width:0">
+      <span style="font-weight:800;font-size:14px;white-space:nowrap">יהב ביטוח</span>
+      <span style="font-size:10.5px;opacity:.55;white-space:nowrap">CRM ביטוח אלמנטרי</span>
+    </div>
   </div>
-  <div class="sf">גרסה 2.0 ☁ | ביטוח אלמנטרי</div>
+  <nav>
+    <a href="#" onclick="nav('dashboard')" id="n-dashboard" class="active"><span class="nav-dot"></span><span style="flex:1">לוח בקרה</span></a>
+    <a href="#" onclick="nav('alerts')" id="n-alerts"><span class="nav-dot"></span><span style="flex:1">התראות חידוש</span><span id="abadge" style="font-size:10.5px;font-weight:800;padding:1px 7px;background:rgba(255,255,255,.2);color:#fff;display:none;margin-right:2px"></span></a>
+    <a href="#" onclick="nav('clients')" id="n-clients"><span class="nav-dot"></span><span style="flex:1">לקוחות</span></a>
+    <a href="#" onclick="nav('policies')" id="n-policies"><span class="nav-dot"></span><span style="flex:1">פוליסות</span></a>
+    <a href="#" onclick="nav('import')" id="n-import" style="display:none"><span class="nav-dot"></span><span>ייבוא נתונים</span></a>
+  </nav>
+  <div class="sbfoot">
+    <div id="sync-status" style="border:1px solid var(--sb-line);padding:10px 12px;display:flex;align-items:center;gap:7px">
+      <span id="sync-dot" style="width:7px;height:7px;background:#94a3b8;flex-shrink:0;transition:background .4s"></span>
+      <span id="sync-lbl" style="font-size:11px;opacity:.7;color:#fff">מתחבר לענן...</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:32px;height:32px;flex:none;border:1px solid var(--sb-line);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;color:#fff">מכ</span>
+      <div style="display:flex;flex-direction:column">
+        <span style="font-size:12.5px;font-weight:700;color:#fff">מאיר כהן</span>
+        <span style="font-size:10.5px;opacity:.5;color:#fff">סוכן</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- MAIN -->
 <div id="main">
+
+<!-- DESKTOP STICKY TOOLBAR -->
+<div class="tools dt-wrap" id="main-toolbar">
+  <div class="tools-search">
+    <i class="bi bi-search"></i>
+    <input type="text" id="dt-search" placeholder="חיפוש לקוח, ת.ז., טלפון, רישוי או מספר פוליסה..." autocomplete="off"
+      oninput="globalDtSearch(this.value)">
+  </div>
+  <button class="btn btn-primary" style="padding:10px 18px" onclick="openPolicyModal()">+ פוליסה חדשה</button>
+  <button class="btn" style="padding:10px 18px;border:1px solid var(--color-divider);color:var(--color-text)" onclick="openClientModal()">+ לקוח חדש</button>
+  <span class="text-muted" style="font-size:11.5px;margin-right:auto" id="dt-result-note">Ctrl+K לחיפוש מהיר</span>
+</div>
 
 <!-- DASHBOARD -->
 <section class="sec active" id="sec-dashboard">
@@ -286,25 +337,56 @@ label{font-weight:700;font-size:13px;color:#1e293b;font-family:'Heebo',sans-seri
 
   <!-- ══ DESKTOP DASHBOARD ══ -->
   <div class="dt-wrap">
-    <div class="ph"><i class="bi bi-speedometer2 text-primary fs-4"></i><h5>לוח בקרה</h5><span id="today-lbl" class="text-muted ms-auto small"></span></div>
-    <div class="ct">
-      <div class="row g-3 mb-4">
-        <div class="col-6 col-md-2"><div class="sc"><div class="lbl">לקוחות</div><div class="val" id="s0">—</div></div></div>
-        <div class="col-6 col-md-2"><div class="sc"><div class="lbl">פוליסות</div><div class="val" id="s1">—</div></div></div>
-        <div class="col-6 col-md-2"><div class="sc"><div class="lbl">רכב</div><div class="val" id="s2">—</div></div></div>
-        <div class="col-6 col-md-2"><div class="sc"><div class="lbl">דירה</div><div class="val" id="s3">—</div></div></div>
-        <div class="col-6 col-md-2"><div class="sc grn"><div class="lbl">חידוש הבא</div><div class="val" id="s4">—</div></div></div>
-        <div class="col-6 col-md-2"><div class="sc red"><div class="lbl">פג תוקף</div><div class="val" id="s5">—</div></div></div>
+    <!-- hidden s3 kept for JS compat -->
+    <span id="s3" style="display:none"></span>
+    <div class="pad">
+      <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+        <h2 style="margin:0;font-family:'Heebo',sans-serif;font-weight:800;font-size:22px">לוח בקרה</h2>
+        <span style="font-size:13px;color:var(--color-neutral-400)" id="today-lbl"></span>
       </div>
-      <div class="row g-3">
-        <div class="col-md-6"><div class="tc p-3">
-          <h6 class="fw-bold mb-3"><i class="bi bi-exclamation-circle-fill text-danger me-2"></i>דחוף / פג תוקף</h6>
-          <div id="d-overdue"><div class="es py-3"><i class="bi bi-check-circle-fill text-success"></i>הכל תקין</div></div>
-        </div></div>
-        <div class="col-md-6"><div class="tc p-3">
-          <h6 class="fw-bold mb-3"><i class="bi bi-calendar-event text-primary me-2"></i>חידושים חודש הבא — <span id="d-nm-lbl"></span></h6>
-          <div id="d-nextmonth"><div class="es py-3"><i class="bi bi-calendar2"></i>אין חידושים</div></div>
-        </div></div>
+
+      <!-- 5-column KPI grid -->
+      <div class="kpis">
+        <div class="kpi-cell">
+          <div class="kpi-lbl">לקוחות</div>
+          <div class="kpi-val" id="s0">—</div>
+          <div class="kpi-sub" id="s0b"></div>
+        </div>
+        <div class="kpi-cell">
+          <div class="kpi-lbl">פוליסות פעילות</div>
+          <div class="kpi-val" id="s1">—</div>
+          <div class="kpi-sub" id="s1b"></div>
+        </div>
+        <div class="kpi-cell">
+          <div class="kpi-lbl">רכב</div>
+          <div class="kpi-val" id="s2">—</div>
+          <div class="kpi-sub" id="s2b"></div>
+        </div>
+        <div class="kpi-cell">
+          <div class="kpi-lbl">חידוש ב-30 יום</div>
+          <div class="kpi-val" id="s4">—</div>
+          <div class="kpi-sub" id="s4b"></div>
+        </div>
+        <div class="kpi-cell accent">
+          <div class="kpi-lbl">דחוף / פג תוקף</div>
+          <div class="kpi-val" id="s5">—</div>
+          <div class="kpi-sub">לטפל היום</div>
+        </div>
+      </div>
+
+      <!-- Split: renewals left / urgent right -->
+      <div class="split">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:baseline;gap:12px">
+            <h4 style="margin:0;font-family:'Heebo',sans-serif;font-weight:800;flex:1">חידושים קרובים — <span id="d-nm-lbl" style="font-weight:500;font-size:14px"></span></h4>
+            <a href="#" onclick="nav('alerts');return false" style="font-size:12.5px;color:var(--brand);text-decoration:none;font-weight:700">לכל ההתראות</a>
+          </div>
+          <div id="d-nextmonth"><div class="es py-3"><i class="bi bi-calendar2"></i><div>אין חידושים</div></div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <h4 style="margin:0;font-family:'Heebo',sans-serif;font-weight:800">דחוף / פג תוקף</h4>
+          <div id="d-overdue"><div class="es py-3"><i class="bi bi-check-circle-fill text-success"></i><div>הכל תקין</div></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -313,10 +395,11 @@ label{font-weight:700;font-size:13px;color:#1e293b;font-family:'Heebo',sans-seri
 
 <!-- ALERTS -->
 <section class="sec" id="sec-alerts">
-  <div class="ph"><i class="bi bi-bell-fill text-warning fs-4"></i><h5>התראות חידוש</h5>
-    <div class="form-check form-switch ms-auto">
+  <div class="ph dt-wrap">
+    <h5>התראות חידוש</h5>
+    <div class="form-check form-switch" style="margin-right:auto">
       <input class="form-check-input" type="checkbox" id="show-renewed" onchange="loadAlerts()">
-      <label class="form-check-label small" for="show-renewed">הצג גם שחודשו</label>
+      <label class="form-check-label small text-muted" for="show-renewed" style="font-weight:500">הצג גם שחודשו</label>
     </div>
   </div>
   <div class="ct" id="alerts-ct"><div class="es"><i class="bi bi-hourglass-split"></i>טוען...</div></div>
@@ -324,8 +407,8 @@ label{font-weight:700;font-size:13px;color:#1e293b;font-family:'Heebo',sans-seri
 
 <!-- CLIENTS -->
 <section class="sec" id="sec-clients">
-  <div class="ph"><i class="bi bi-people-fill text-primary fs-4"></i><h5>לקוחות</h5>
-    <button class="btn btn-primary btn-sm ms-auto" onclick="openClientModal()"><i class="bi bi-plus-lg me-1"></i>לקוח חדש</button>
+  <div class="ph dt-wrap">
+    <h5>לקוחות</h5>
   </div>
   <div class="ct"><div class="tc">
     <div class="tb">
@@ -365,8 +448,8 @@ label{font-weight:700;font-size:13px;color:#1e293b;font-family:'Heebo',sans-seri
 
 <!-- POLICIES -->
 <section class="sec" id="sec-policies">
-  <div class="ph"><i class="bi bi-file-earmark-text-fill text-primary fs-4"></i><h5>פוליסות</h5>
-    <button class="btn btn-primary btn-sm ms-auto" onclick="openPolicyModal()"><i class="bi bi-plus-lg me-1"></i>פוליסה חדשה</button>
+  <div class="ph dt-wrap">
+    <h5>פוליסות</h5>
   </div>
   <div class="ct"><div class="tc">
     <div class="tb flex-wrap gap-2">
@@ -1120,7 +1203,7 @@ async function loadDash(){
   }
   const bc=overdue.length+nmP.length;
   const badge=document.getElementById('abadge');
-  if(bc>0){badge.textContent=bc;badge.classList.remove('d-none')}else badge.classList.add('d-none');
+  if(badge){if(bc>0){badge.textContent=bc;badge.style.display='inline';}else badge.style.display='none';}
   const mnb=document.getElementById('mn-abadge');
   if(mnb){if(bc>0){mnb.textContent=bc;mnb.classList.remove('d-none')}else mnb.classList.add('d-none');}
   renderAlertRows('d-overdue',overdue,'danger');
@@ -2465,6 +2548,23 @@ function closeMobMenu(){
 function mobFabAction(){
   if(curSection==='clients')openClientModal();
   else if(curSection==='policies')openPolicyModal();
+}
+function globalDtSearch(val){
+  const note=document.getElementById('dt-result-note');
+  if(!val){
+    const ci=document.getElementById('csrch');const pi=document.getElementById('psrch');
+    if(ci)ci.value='';if(pi)pi.value='';
+    if(curSection==='clients')renderClients();
+    else if(curSection==='policies')renderPolicies();
+    if(note)note.textContent='Ctrl+K לחיפוש מהיר';
+    return;
+  }
+  if(curSection!=='clients'&&curSection!=='policies')nav('clients');
+  const ci=document.getElementById('csrch');if(ci)ci.value=val;
+  if(curSection==='clients'||curSection==='dashboard')renderClients();
+  else if(curSection==='policies'){
+    const pi=document.getElementById('psrch');if(pi)pi.value=val;renderPolicies();
+  }
 }
 function globalMobSearch(val){
   const clearBtn=document.getElementById('mhdr-search-clear');
